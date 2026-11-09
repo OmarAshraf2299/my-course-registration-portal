@@ -10,6 +10,7 @@ SQL is read-only; original-database access collects fingerprints only.
 Existing Milestone 2 artifacts are never written. Test fixtures are retained.
 """
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import ctypes
 from ctypes import wintypes
 import datetime as dt
@@ -23,6 +24,7 @@ import shutil
 import socket
 import struct
 import subprocess
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -175,7 +177,7 @@ def start():
             env.pop(key)
     env.update(DB_URL=URL, DB_USERNAME=os.environ.get("DB_USERNAME", "root"), DB_PASSWORD=credential(),
                JPA_DDL_AUTO="none", PORT="8081")
-    command = [str(java), "-cp", classpath, "io.khadijah.smartcoursehub.SmartCourseHubApplication",
+    command = [str(java), "-Dspring.devtools.restart.enabled=false", "-cp", classpath, "io.khadijah.smartcoursehub.SmartCourseHubApplication",
                "--server.address=127.0.0.1", "--server.port=8081", "--spring.datasource.url=" + URL,
                "--spring.jpa.hibernate.ddl-auto=none", "--spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect",
                "--spring.datasource.hikari.pool-name=" + POOL,
@@ -190,6 +192,35 @@ def start():
         "jdbc_url": URL, "ddl_auto": "none", "port": 8081, "log": str(log_path),
         "original_before": str(before), "java": str(java)}, indent=2), encoding="utf-8")
     print("Launched isolated backend PID=" + str(process.pid) + "; run verify after initialization")
+
+
+def restart():
+    """Stop only the exact PID whose command and listener match our private state."""
+    state = runtime()
+    process_id = int(state["pid"])
+    if state["jdbc_url"] != URL or state["ddl_auto"] != "none" or process_id not in port_owners():
+        raise RuntimeError("Refusing restart: recorded isolated PID does not own port 8081")
+    command = ("Get-CimInstance Win32_Process -Filter 'ProcessId=" + str(process_id)
+               + "' | Select-Object ProcessId,CommandLine | ConvertTo-Json -Compress")
+    observed = subprocess.run(["powershell.exe", "-NoProfile", "-Command", command],
+                              capture_output=True, text=True, check=True)
+    process = json.loads(observed.stdout)
+    args = process.get("CommandLine", "")
+    if process["ProcessId"] != process_id or not all(part in args for part in
+            ("io.khadijah.smartcoursehub.SmartCourseHubApplication", "--spring.datasource.url=" + URL,
+             "--spring.jpa.hibernate.ddl-auto=none", "--spring.datasource.hikari.pool-name=" + POOL)):
+        raise RuntimeError("Refusing restart: PID command does not match our isolated application")
+    stopped = subprocess.run(["taskkill.exe", "/PID", str(process_id), "/F"], capture_output=True, text=True)
+    if stopped.returncode:
+        raise RuntimeError("Could not stop the exact verified backend PID")
+    for _ in range(30):
+        if process_id not in port_owners():
+            break
+        time.sleep(0.1)
+    if port_owners():
+        raise RuntimeError("Port 8081 is occupied after stopping our PID")
+    print("Stopped exact managed backend PID=" + str(process_id))
+    start()
 
 
 def verify():
@@ -240,17 +271,20 @@ class Verification:
         self.run_id = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + secrets.token_hex(3)
         self.directory = EVIDENCE / (bug.lower() + "-" + self.run_id)
         self.events = []
+        self.event_lock = threading.Lock()
         self.checks = []
         self.original_before = original_snapshot()
         save(self.directory / "original-database-before.json", self.original_before)
 
-    def request(self, label, method, path, body=None, token=None):
+    def request(self, label, method, path, body=None, token=None, before_send=None):
         guard()
         headers = {"Content-Type": "application/json"}
         if token:
             headers["Authorization"] = "Bearer " + token
         request = urllib.request.Request(BASE + path, data=json.dumps(body).encode() if body is not None else None,
                                          headers=headers, method=method)
+        if before_send is not None:
+            before_send.wait(timeout=20)
         try:
             with urllib.request.urlopen(request, timeout=30) as response:
                 status, payload = response.status, response.read().decode("utf-8")
@@ -261,10 +295,11 @@ class Verification:
         except json.JSONDecodeError:
             pass
         result = {"status": status, "body": payload}
-        self.events.append({"timestamp": now(), "label": label,
-                            "request": {"method": method, "path": path, "authenticated": bool(token), "body": body},
-                            "response": result})
-        save(self.directory / "http-transcript.json", self.events)
+        with self.event_lock:
+            self.events.append({"timestamp": now(), "label": label,
+                                "request": {"method": method, "path": path, "authenticated": bool(token), "body": body},
+                                "response": result})
+            save(self.directory / "http-transcript.json", self.events)
         return result
 
     def check(self, case, condition, expected, actual):
@@ -347,15 +382,88 @@ def bug01():
     return test.finish(error)
 
 
+def bug02():
+    test = Verification("BUG02")
+    error = None
+    try:
+        legacy_query = ("SELECT id, section_id, session_date, start_time, duration_minutes, created_by_teacher_id "
+                        "FROM class_sessions WHERE id IN (1,2,3,4) ORDER BY id")
+        # These are synthetic M2 rows identified by the preserved original evidence.
+        legacy_before = test.sql("m2-sessions-before", legacy_query)
+        admin = test.data(test.request("existing administrator login", "POST", "/api/auth/login", admin_credentials()))
+        instructor_fixture = test.fixture("INSTRUCTOR")
+        instructor_id = test.data(test.request("administrator provisions synthetic instructor", "POST", "/api/admin/users",
+                                                instructor_fixture, admin["token"]))
+        instructor = test.data(test.request("synthetic instructor login", "POST", "/api/auth/login",
+                                            {"email": instructor_fixture["email"], "password": instructor_fixture["password"]}))
+        course_id = test.data(test.request("create synthetic scheduling course", "POST", "/api/admin/courses",
+                       {"code": "M3-" + test.run_id, "title": "M3 Synthetic Corrective Course",
+                        "description": "Isolated corrective maintenance fixture", "creditHours": 3}, admin["token"]))
+        section_id = test.data(test.request("create synthetic scheduling section", "POST", "/api/admin/sections",
+                       {"courseId": course_id, "instructorId": instructor_id, "semester": "M3-SYNTHETIC",
+                        "capacity": 10, "room": "M3-TEST", "schedule": "Synthetic Monday Wednesday 09:00"}, admin["token"]))
+        path = "/api/sections/" + str(section_id) + "/sessions"
+        token = instructor["token"]
+        before = test.data(test.request("sessions before generation", "GET", path, token=token))
+        test.check("initial-empty", before == [], "0 rows", len(before))
+        first = test.data(test.request("initial weekly generation", "POST", path + "/week?startDate=2026-11-09", token=token))
+        first_ids = sorted(row["id"] for row in first)
+        test.check("initial-two", len(first) == 2 and len(set(first_ids)) == 2, "2 distinct session IDs", first_ids)
+        repeated = test.data(test.request("exact weekly replay", "POST", path + "/week?startDate=2026-11-09", token=token))
+        repeated_ids = sorted(row["id"] for row in repeated)
+        after_repeat = test.data(test.request("sessions after exact replay", "GET", path, token=token))
+        test.check("repeat-same-ids", repeated_ids == first_ids, first_ids, repeated_ids)
+        test.check("repeat-two-rows", len(after_repeat) == 2, "2 rows", len(after_repeat))
+        next_week = test.data(test.request("distinct next week", "POST", path + "/week?startDate=2026-11-16", token=token))
+        after_next = test.data(test.request("sessions after next week", "GET", path, token=token))
+        test.check("next-week-new-ids", not set(first_ids).intersection(row["id"] for row in next_week), "new IDs", [r["id"] for r in next_week])
+        test.check("next-week-four-rows", len(after_next) == 4, "4 rows", len(after_next))
+        overlap = test.data(test.request("overlap reuses Wednesday and adds Friday", "POST", path + "/week?startDate=2026-11-11", token=token))
+        after_overlap = test.data(test.request("sessions after overlapping generation", "GET", path, token=token))
+        overlap_existing = [r["id"] for r in overlap if r["sessionDate"] == "2026-11-11"]
+        expected_existing = [r["id"] for r in first if r["sessionDate"] == "2026-11-11"]
+        test.check("overlap-preserves-existing-id", overlap_existing == expected_existing, expected_existing, overlap_existing)
+        test.check("overlap-adds-only-missing", len(after_overlap) == 5, "5 rows", len(after_overlap))
+        barrier = threading.Barrier(4)
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = [executor.submit(test.request, "concurrent weekly generation " + str(i + 1), "POST",
+                                        path + "/week?startDate=2026-11-23", None, token, barrier) for i in range(4)]
+            responses = [future.result(timeout=50) for future in futures]
+        test.check("concurrent-all-success", all(r["status"] == 200 for r in responses), "4 HTTP 200 responses", [r["status"] for r in responses])
+        concurrent_ids = [sorted(row["id"] for row in test.data(r)) for r in responses]
+        test.check("concurrent-same-ids", all(ids == concurrent_ids[0] for ids in concurrent_ids) and len(concurrent_ids[0]) == 2,
+                   "same 2 IDs in all responses", concurrent_ids)
+        rows = test.sql("concurrent-week-database", "SELECT id, section_id, session_date, start_time FROM class_sessions WHERE section_id="
+                        + str(section_id) + " AND session_date IN ('2026-11-23','2026-11-25') ORDER BY session_date,id")
+        test.check("concurrent-two-persisted", len(rows) == 2, "2 rows", rows)
+        duplicates = test.sql("fixture-duplicate-groups", "SELECT section_id, session_date, start_time, COUNT(*) AS n FROM class_sessions WHERE section_id="
+                              + str(section_id) + " GROUP BY section_id,session_date,start_time HAVING COUNT(*)>1")
+        test.check("no-new-duplicate-groups", not duplicates, "0 duplicate groups", duplicates)
+        missing = test.request("missing section generation", "POST", "/api/sections/9223372036854775807/sessions/week?startDate=2026-11-09", token=token)
+        test.check("missing-section-404", missing["status"] == 404, "404", missing["status"])
+        invalid = test.request("invalid generation date", "POST", path + "/week?startDate=not-a-date", token=token)
+        test.check("invalid-date-400", invalid["status"] == 400, "400", invalid["status"])
+        legacy_after = test.sql("m2-sessions-after", legacy_query)
+        test.check("m2-session-rows-preserved", legacy_before == legacy_after, legacy_before, legacy_after)
+        save(test.directory / "fixture-identifiers.json", {"instructor_id": instructor_id, "instructor_email": instructor_fixture["email"],
+              "course_id": course_id, "section_id": section_id, "session_ids": first_ids,
+              "note": "Credentials are not retained. A fresh protected synthetic fixture may be used for subsequent verification."})
+    except Exception as exc:
+        error = str(exc)
+    return test.finish(error)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["start", "verify", "bug01"])
+    parser.add_argument("command", choices=["start", "restart", "verify", "bug01", "bug02"])
     args = parser.parse_args()
     if args.command == "start":
         start()
+    elif args.command == "restart":
+        restart()
     elif args.command == "verify":
         verify()
-    elif not bug01():
+    elif not {"bug01": bug01, "bug02": bug02}[args.command]():
         raise SystemExit(1)
 
 

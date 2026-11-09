@@ -44,7 +44,9 @@ public class AttendanceService {
 
     @Transactional
     public List<ClassSession> generateWeeklySessions(Long sectionId, LocalDate weekStartDate) {
-        Sections section = sectionsRepository.findById(sectionId)
+        // Lock the existing parent even when no sessions exist yet. All generators
+        // for this section serialize across transactions/application instances.
+        Sections section = sectionsRepository.findByIdForUpdate(sectionId)
                 .orElseThrow(() -> new NoSuchElementException("Section not found"));
 
         // Creating 2 sessions for the week
@@ -62,17 +64,19 @@ public class AttendanceService {
     private ClassSession createSessionIfNotExists(Sections section, LocalDate date) {
         LocalTime defaultTime = LocalTime.of(9, 0); 
         
-        // In a real app, check for existing sessions to avoid duplicates
-        // For now, we just create it as requested by "generate" logic
-        
-        ClassSession session = ClassSession.builder()
-                .section(section)
-                .sessionDate(date)
-                .startTime(defaultTime)
-                .durationMinutes(90)
-                .createdByTeacher(usersRepository.findById(section.getInstructorId()).orElse(null)) 
-                .build();
-        return classSessionRepository.save(session);
+        // Reuse a stable existing row, including when historical duplicates exist.
+        // No historical sessions or dependent attendance records are deleted.
+        return classSessionRepository.findFirstBySectionIdAndSessionDateAndStartTimeOrderByIdAsc(
+                section.getId(), date, defaultTime).orElseGet(() -> {
+            ClassSession session = ClassSession.builder()
+                    .section(section)
+                    .sessionDate(date)
+                    .startTime(defaultTime)
+                    .durationMinutes(90)
+                    .createdByTeacher(usersRepository.findById(section.getInstructorId()).orElse(null))
+                    .build();
+            return classSessionRepository.save(session);
+        });
     }
 
     @Transactional

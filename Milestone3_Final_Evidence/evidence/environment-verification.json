@@ -1,7 +1,7 @@
 {
-  "captured_utc": "2026-11-09T14:29:18.469815+00:00",
+  "captured_utc": "2026-11-09T14:33:11.784960+00:00",
   "status": "VERIFIED",
-  "pid": 47676,
+  "pid": 46708,
   "connection": {
     "connected_database": "smartcoursehub_m2_test",
     "mysql_version": "8.0.44",
@@ -9,47 +9,47 @@
   },
   "ddl_auto": "none",
   "hikari_jdbc_lines": [
-    "2026-11-09T16:28:17.957+02:00 DEBUG 47676 --- [student-course-hub] [  restartedMain] com.zaxxer.hikari.HikariConfig           : jdbcUrl.........................jdbc:mysql://localhost:3306/smartcoursehub_m2_test"
+    "2026-11-09T16:33:00.182+02:00 DEBUG 46708 --- [student-course-hub] [           main] com.zaxxer.hikari.HikariConfig           : jdbcUrl.........................jdbc:mysql://localhost:3306/smartcoursehub_m2_test"
   ],
   "mysql_pool_connections": [
     {
-      "connection_id": "710",
+      "connection_id": "913",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "717",
+      "connection_id": "914",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "719",
+      "connection_id": "915",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "721",
+      "connection_id": "916",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "723",
+      "connection_id": "917",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "724",
+      "connection_id": "918",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "726",
+      "connection_id": "919",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "728",
+      "connection_id": "920",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "729",
+      "connection_id": "921",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "731",
+      "connection_id": "922",
       "database_name": "smartcoursehub_m2_test"
     }
   ],

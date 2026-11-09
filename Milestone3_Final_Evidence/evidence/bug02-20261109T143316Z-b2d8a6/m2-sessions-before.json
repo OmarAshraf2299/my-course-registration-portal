@@ -1,0 +1,39 @@
+{
+  "timestamp": "2026-11-09T14:33:18.622554+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id, section_id, session_date, start_time, duration_minutes, created_by_teacher_id FROM class_sessions WHERE id IN (1,2,3,4) ORDER BY id",
+  "rows": [
+    {
+      "id": "1",
+      "section_id": "137",
+      "session_date": "2026-11-09",
+      "start_time": "09:00:00.000000",
+      "duration_minutes": "90",
+      "created_by_teacher_id": "32"
+    },
+    {
+      "id": "2",
+      "section_id": "137",
+      "session_date": "2026-11-11",
+      "start_time": "09:00:00.000000",
+      "duration_minutes": "90",
+      "created_by_teacher_id": "32"
+    },
+    {
+      "id": "3",
+      "section_id": "137",
+      "session_date": "2026-11-09",
+      "start_time": "09:00:00.000000",
+      "duration_minutes": "90",
+      "created_by_teacher_id": "32"
+    },
+    {
+      "id": "4",
+      "section_id": "137",
+      "session_date": "2026-11-11",
+      "start_time": "09:00:00.000000",
+      "duration_minutes": "90",
+      "created_by_teacher_id": "32"
+    }
+  ]
+}

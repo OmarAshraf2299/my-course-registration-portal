@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-11-09T14:33:23.047862+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id, section_id, session_date, start_time FROM class_sessions WHERE section_id=138 AND session_date IN ('2026-11-23','2026-11-25') ORDER BY session_date,id",
+  "rows": [
+    {
+      "id": "10",
+      "section_id": "138",
+      "session_date": "2026-11-23",
+      "start_time": "09:00:00.000000"
+    },
+    {
+      "id": "11",
+      "section_id": "138",
+      "session_date": "2026-11-25",
+      "start_time": "09:00:00.000000"
+    }
+  ]
+}

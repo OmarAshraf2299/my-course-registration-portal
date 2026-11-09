@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-11-08T14:00:40.713350+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id, name, email, role, CAST(enabled AS UNSIGNED) AS enabled FROM users WHERE id=31",
+  "rows": [
+    {
+      "id": "31",
+      "name": "M2 Synthetic Admin",
+      "email": "m2-admin-20261108t135939z-4b2a49@example.test",
+      "role": "ADMIN",
+      "enabled": "1"
+    }
+  ]
+}

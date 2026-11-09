@@ -1,0 +1,16 @@
+{
+  "branch": "master",
+  "head": "47429f43bc5fc6a718191b1fb2516cd69d3b2934",
+  "preexisting_files": {
+    ".idea/compiler.xml": "cc46c58bb1a5b07ad7ce46cc62e13aa67c3a9bb1563870b940ca25c6120dba4c",
+    "student-course-hub-master/.env.example": "551780f67708c63078f534a4007231f7764b3512e173a1f210311533b28b903e",
+    "student-course-hub-master/client/.env.example": "0fc4f16ec474b6c4d1123641650e95395c5856bdfab2e8c65b2d365713e26fe8",
+    "student-course-hub-master/client/src/api/axiosClient.js": "bbe8b1247bcc16bb3ff57ad97f2c61b3b3cabe05468a88fd61068231beb168f6",
+    "student-course-hub-master/server/README.md": "b9c032dc2cd06fc739124fa1af2632580fc32415f9945a25da4932b3151e5bbd",
+    "student-course-hub-master/server/src/main/resources/application.properties": "324f7b642924bedeb8bd0afcd74b031b15f943424ba2b79e504d8dcebe6b4db7",
+    ".idea/vcs.xml": "136f8b0a20e3e16f5b60e8505219c34746e1ec62c68433f4f8ec97eefe3aa038",
+    ".milestone2.zip": "5bea0a2e41e68370af0f790e5b4b40faa94cb5788f3ef2951852dd36d8619585"
+  },
+  "milestone2_file_count": 353,
+  "preservation": "Private byte-for-byte backups retained in .milestone3; pre-existing changes excluded from fix commits."
+}

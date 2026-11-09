@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-11-09T14:29:23.265604+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT COUNT(*) AS n FROM users WHERE email='m3-public-2d32289393@example.test'",
+  "rows": [
+    {
+      "n": "0"
+    }
+  ]
+}

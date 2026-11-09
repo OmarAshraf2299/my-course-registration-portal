@@ -1,0 +1,422 @@
+[
+  {
+    "timestamp": "2026-11-09T14:29:21.745587+00:00",
+    "label": "anonymous admin API denied",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": false,
+      "body": null
+    },
+    "response": {
+      "status": 403,
+      "body": ""
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:22.091575+00:00",
+    "label": "public role ADMIN rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Admin",
+        "email": "m3-public-1505252b59@example.test",
+        "password": "[REDACTED]",
+        "role": "ADMIN"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:22.303653+00:00",
+    "label": "public role admin rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Admin",
+        "email": "m3-public-e98ea7ac2f@example.test",
+        "password": "[REDACTED]",
+        "role": "admin"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:22.518056+00:00",
+    "label": "public role AdMiN rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Admin",
+        "email": "m3-public-6708aeb0ee@example.test",
+        "password": "[REDACTED]",
+        "role": "AdMiN"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:22.732896+00:00",
+    "label": "public role INSTRUCTOR rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-public-b82a57fecd@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:22.949790+00:00",
+    "label": "public role instructor rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-public-e89565dc54@example.test",
+        "password": "[REDACTED]",
+        "role": "instructor"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:23.165837+00:00",
+    "label": "public role UNKNOWN rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Unknown",
+        "email": "m3-public-2d32289393@example.test",
+        "password": "[REDACTED]",
+        "role": "UNKNOWN"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Public registration only permits the STUDENT role",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:23.560212+00:00",
+    "label": "normal student registration",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Student",
+        "email": "m3-student-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]",
+        "role": "STUDENT"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Registration successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 34,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261109t142919z-84aac5@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:23.775910+00:00",
+    "label": "normal student login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 34,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261109t142919z-84aac5@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:23.940285+00:00",
+    "label": "student admin API denied",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 403,
+      "body": ""
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:24.188196+00:00",
+    "label": "wrong login password rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Invalid email or password",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:24.472127+00:00",
+    "label": "existing administrator login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "[REDACTED]",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 1,
+          "name": "[REDACTED]",
+          "email": "[REDACTED]",
+          "role": "ADMIN"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:24.703407+00:00",
+    "label": "existing administrator access preserved",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:25.050065+00:00",
+    "label": "authorized administrator creates ADMIN",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Admin",
+        "email": "m3-admin-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]",
+        "role": "ADMIN"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 35
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:25.301843+00:00",
+    "label": "provisioned ADMIN login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-admin-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 35,
+          "name": "M3 Synthetic Admin",
+          "email": "m3-admin-20261109t142919z-84aac5@example.test",
+          "role": "ADMIN"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:25.610692+00:00",
+    "label": "provisioned ADMIN administrative role control",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:25.875795+00:00",
+    "label": "authorized administrator creates INSTRUCTOR",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-instructor-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 36
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:26.093282+00:00",
+    "label": "provisioned INSTRUCTOR login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-instructor-20261109t142919z-84aac5@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 36,
+          "name": "M3 Synthetic Instructor",
+          "email": "m3-instructor-20261109t142919z-84aac5@example.test",
+          "role": "INSTRUCTOR"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:29:26.337823+00:00",
+    "label": "provisioned INSTRUCTOR administrative role control",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 403,
+      "body": ""
+    }
+  }
+]

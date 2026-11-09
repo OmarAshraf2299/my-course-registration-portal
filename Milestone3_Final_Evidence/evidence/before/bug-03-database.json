@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-08T13:59:44.174238+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT session_id, student_id, COUNT(*) AS duplicate_count, GROUP_CONCAT(id ORDER BY id) AS ids FROM attendance WHERE session_id=1 AND student_id=33 GROUP BY session_id, student_id HAVING COUNT(*) > 1",
+  "rows": [
+    {
+      "session_id": "1",
+      "student_id": "33",
+      "duplicate_count": "2",
+      "ids": "1,2"
+    }
+  ]
+}

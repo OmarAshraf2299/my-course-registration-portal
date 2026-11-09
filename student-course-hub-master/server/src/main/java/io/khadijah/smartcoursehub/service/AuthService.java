@@ -55,11 +55,12 @@ public class AuthService {
             throw new RuntimeException("Email already registered");
         }
 
-        // Validate role
-        String role = request.getRole().toUpperCase();
-        if (!role.equals("ADMIN") && !role.equals("INSTRUCTOR") && !role.equals("STUDENT")) {
-            throw new RuntimeException("Invalid role. Must be ADMIN, INSTRUCTOR, or STUDENT");
+        // Public registration cannot provision privileged roles. Administrators
+        // can still create ADMIN/INSTRUCTOR accounts through /api/admin/users.
+        if (!"STUDENT".equalsIgnoreCase(request.getRole())) {
+            throw new IllegalStateException("Public registration only permits the STUDENT role");
         }
+        String role = "STUDENT";
 
         Users user = Users.builder()
                 .name(request.getName())

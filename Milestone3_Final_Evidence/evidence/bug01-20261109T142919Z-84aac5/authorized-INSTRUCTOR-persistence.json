@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-11-09T14:29:26.208293+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id, role, CAST(enabled AS UNSIGNED) AS enabled FROM users WHERE id=36",
+  "rows": [
+    {
+      "id": "36",
+      "role": "INSTRUCTOR",
+      "enabled": "1"
+    }
+  ]
+}

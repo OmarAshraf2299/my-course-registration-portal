@@ -1,0 +1,50 @@
+{
+  "note": "Unmodified copies of preserved M2 evidence. PNGs are rendered recorded evidence excerpts, not application screenshots. M2 observation timestamp 2026-11-08; M3 tests collected separately.",
+  "files": [
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\test-results\\BUG-01_Evidence.md",
+      "copy": "evidence\\before\\BUG-01_Evidence.md",
+      "sha256": "79a794aca833eccb96cbd28ed496c667704a7c5ed399d2d3a4572f959505a889"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\test-results\\BUG-02_Evidence.md",
+      "copy": "evidence\\before\\BUG-02_Evidence.md",
+      "sha256": "5dcd323a1544e06d7e0f37bcebaa33555f1519d45c56f5efbfff6d057d7d8167"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\test-results\\BUG-03_Evidence.md",
+      "copy": "evidence\\before\\BUG-03_Evidence.md",
+      "sha256": "b78b76a0ddd5fa9b21744fbdcc4095bdc2d71f004a4bcb3f3763579dbe3521e2"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\run-20261108T135939Z-4b2a49\\bug-01-enabled-recheck.json",
+      "copy": "evidence\\before\\bug-01-enabled-recheck.json",
+      "sha256": "03d2b655219ef6473dfeb9a545a2d63e5924964ce65ccb8d07f0a0ac0a55a69c"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\run-20261108T135939Z-4b2a49\\bug-02-database.json",
+      "copy": "evidence\\before\\bug-02-database.json",
+      "sha256": "5ad4b507341e400cc9c426dfdda5625a7e6e493d8107ea29b14dbb471b6236b2"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\run-20261108T135939Z-4b2a49\\bug-03-database.json",
+      "copy": "evidence\\before\\bug-03-database.json",
+      "sha256": "de02608c485f678c976f5ed22bbcea1132a4b973be33d6722041ce77f284ce99"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\visuals\\E02_BUG01.png",
+      "copy": "evidence\\before\\E02_BUG01.png",
+      "sha256": "484a9a5f4385e5ece15c43c3f7c288627730c2348983e6e50831067a42189396"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\visuals\\E03_BUG02.png",
+      "copy": "evidence\\before\\E03_BUG02.png",
+      "sha256": "af76a6f0d156848c4bc3bd4845d9de7727327b115027b3fe96b0c96dae63fdfb"
+    },
+    {
+      "source": ".milestone2\\SmartCourseHub_Milestone2_Final_Evidence\\evidence\\visuals\\E04_BUG03.png",
+      "copy": "evidence\\before\\E04_BUG03.png",
+      "sha256": "c5cc0dfbeb04c9b4aa5295fc44a8975d820fdf4c9d7b69a458562befc0ac7f5d"
+    }
+  ]
+}

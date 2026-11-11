@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="io.khadijah.smartcoursehub.SmartCourseHubApplicationTests" time="3.828" tests="1" errors="0" skipped="0" failures="0">
+  <testcase name="contextLoads" classname="io.khadijah.smartcoursehub.SmartCourseHubApplicationTests" time="0.004" />
+</testsuite>

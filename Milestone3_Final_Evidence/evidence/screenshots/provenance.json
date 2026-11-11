@@ -1,0 +1,150 @@
+{
+  "description": "Authentic browser screenshots of recorded sanitized API/MySQL evidence JSON files. These are not SmartCourseHub application UI screenshots.",
+  "browser": "chrome.exe",
+  "viewport": {
+    "width": 1600,
+    "height": 1200
+  },
+  "capture_method": "Installed Chrome/Edge headless --screenshot opening original packaged JSON via file URL; no image editing or synthetic application UI.",
+  "captures": [
+    {
+      "captured_utc": "2026-11-11T18:56:42.068882+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/results.json",
+      "source_sha256": "c16451db0d432f988f2cb085a2aa76ee9c35a191e3c917922d0bd8ee132bfa84",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-results.png",
+      "screenshot_sha256": "5c0d6efb92c5d782270772e56a96017c8d56bd9120fb77ffc8933162aa96f25d",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:42.771309+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/authorized-ADMIN-persistence.json",
+      "source_sha256": "9618dd9b74ec8b14a9b5be0a77c6d9c6f874a00fabc57ab0bda7a6627763e872",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-authorized-ADMIN-persistence.png",
+      "screenshot_sha256": "af235e4dc2b3a64ce482443a825f89f78be475c4aeaf6bee80ac72da513d8e84",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:43.597047+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/authorized-INSTRUCTOR-persistence.json",
+      "source_sha256": "9d639de4c2809b0ff6bd94b2259fb39e0c4adaa8323536226ddf273e8f55f3ca",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-authorized-INSTRUCTOR-persistence.png",
+      "screenshot_sha256": "9cdcbda1df08c123900a00139d92177fd1485e804e02b32a464a72314fa6d923",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:44.309377+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-0-ADMIN-persistence.json",
+      "source_sha256": "8c21ac583232fc3988faaa57dd0b4d5f39927be0b590e5a8d6ea269fa5399947",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-0-ADMIN-persistence.png",
+      "screenshot_sha256": "8ccb90a8d6bd69803fde60066b55492a1c32fef61df89432b326c92d5fb2d095",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:45.023056+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-1-admin-persistence.json",
+      "source_sha256": "e9e309a4f24b4f5afd814412e98fc224a80115ef3f9e409bcd94e92dd56185f6",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-1-admin-persistence.png",
+      "screenshot_sha256": "e7d3bb8a5e9e721c4a77ac20ac7fb16716f3beb8eff9f3d4c0e4d3ed2d3f30a6",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:45.791306+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-2-AdMiN-persistence.json",
+      "source_sha256": "a703a6097cf4f2bea58cf91ff56cf7759397990b5688c50b6b7c8f7046c6281b",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-2-AdMiN-persistence.png",
+      "screenshot_sha256": "32013ed2808460d76dba8ea9be43cd3ba715c40128cf9770d1880f5bb0c841ba",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:46.522013+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-3-INSTRUCTOR-persistence.json",
+      "source_sha256": "a3bbb1383433bc7b2c053fd9b31e91347efdddb2a4229ef83886619541351806",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-3-INSTRUCTOR-persistence.png",
+      "screenshot_sha256": "f9590fc6250aa32dadf5f1501ac961594a55eda2e310dd2b45cee7fb64554000",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:47.258716+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-4-instructor-persistence.json",
+      "source_sha256": "d0099eed4d12880297424acb7f5fdbb989938b255ac0e85937d4d1576a040609",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-4-instructor-persistence.png",
+      "screenshot_sha256": "776ae712badd497a802f323787a13c77b68825ef02d2c7024d7ca8765276863f",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:48.478451+00:00",
+      "source": "evidence/bug01-20261111T185427Z-08e19d/public-5-UNKNOWN-persistence.json",
+      "source_sha256": "6b7b2cd928582478fd7b46ffcf371eb5a869c3838831fde413cf26b46f27ef5f",
+      "screenshot": "evidence/screenshots/bug01-20261111T185427Z-08e19d-public-5-UNKNOWN-persistence.png",
+      "screenshot_sha256": "a4e463875906a700fe200ba733dcf9b84da1e844fb7e9439972f5575ee732380",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:49.818866+00:00",
+      "source": "evidence/bug02-20261111T185441Z-a45866/results.json",
+      "source_sha256": "44b876d5565aadcae30ff880851fe03e6b6f65045fe80040549e00178ee88dfa",
+      "screenshot": "evidence/screenshots/bug02-20261111T185441Z-a45866-results.png",
+      "screenshot_sha256": "58240d9e4aac05f3d96c48dcba28b3abf0bf5b6a1166e4b82f4cf34c3c8971f0",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:50.548218+00:00",
+      "source": "evidence/bug02-20261111T185441Z-a45866/concurrent-week-database.json",
+      "source_sha256": "1e0e50fc384187fa816b5537f8ee0c14d84c24d704ab912d76cdce419bd9b6f0",
+      "screenshot": "evidence/screenshots/bug02-20261111T185441Z-a45866-concurrent-week-database.png",
+      "screenshot_sha256": "983903440c01562faa64addec89c7941f55e90038126f2e127fdfee550837ebf",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:51.248496+00:00",
+      "source": "evidence/bug02-20261111T185441Z-a45866/fixture-duplicate-groups.json",
+      "source_sha256": "15e61f9e144ac8b2f548a6127b313e26f8c890601df4b774a0d0d81cacbaaff7",
+      "screenshot": "evidence/screenshots/bug02-20261111T185441Z-a45866-fixture-duplicate-groups.png",
+      "screenshot_sha256": "846246db5176873fd7f9c4646c83447b9084efe8b104e9c5158e8864759d7fd1",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:52.055983+00:00",
+      "source": "evidence/bug03-20261111T185503Z-5469ff/results.json",
+      "source_sha256": "18739349097a22831b4dd5ed8947db10646d4d1b6a9bb2d5fc310602e15c384c",
+      "screenshot": "evidence/screenshots/bug03-20261111T185503Z-5469ff-results.png",
+      "screenshot_sha256": "0a5ccd9f18e1ee7899ad81270481ca6907f425f7d0f7fc36ba4ba4f7e5953011",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:52.743376+00:00",
+      "source": "evidence/bug03-20261111T185503Z-5469ff/concurrent-attendance-database.json",
+      "source_sha256": "8d1d96a393b2e4a539716c623990de0c1428f09cc3a001358e7b328f43c9f77e",
+      "screenshot": "evidence/screenshots/bug03-20261111T185503Z-5469ff-concurrent-attendance-database.png",
+      "screenshot_sha256": "5f956a1c0f06183cec31dd37e69a4eb3c53da57b3617b2d470ca8a7239269549",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:54.237062+00:00",
+      "source": "evidence/bug03-20261111T185503Z-5469ff/duplicate-batch-final-state.json",
+      "source_sha256": "d401507cb95d4e5d85390fb888d91ea82c24ac00584590dd661665f4465590ab",
+      "screenshot": "evidence/screenshots/bug03-20261111T185503Z-5469ff-duplicate-batch-final-state.png",
+      "screenshot_sha256": "a44ca86c1809a8ebcde6ac06ffdc30fdae9cd95777f2897fd735e5e192480593",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:55.092155+00:00",
+      "source": "evidence/environment-verification.json",
+      "source_sha256": "bf5d2ca777217cb729153480a01482fa45c455c67a673b6c559062e0f323ef55",
+      "screenshot": "evidence/screenshots/evidence-environment-verification.png",
+      "screenshot_sha256": "885b2e56afad64b355c0b3dc58785a3b4fa7e0158a725fc8002df3ef57cdbb92",
+      "label": "Browser view of recorded sanitized evidence; not application UI"
+    },
+    {
+      "captured_utc": "2026-11-11T18:56:55.927920+00:00",
+      "source": "evidence/screenshots/preservation-verification-captured.json",
+      "source_sha256": "bb61b9dd840da18cb325788ca23592e9f5c402892faecdb65b3dde6461b0478f",
+      "screenshot": "evidence/screenshots/evidence-preservation-verification.png",
+      "screenshot_sha256": "9ab40ae87a229cebf0f2d05fe9d07848e862dd7322f8deca73719cacb985a973",
+      "label": "Browser view of recorded sanitized evidence; not application UI",
+      "original_source_at_capture": "evidence/preservation-verification.json",
+      "note": "Byte-identical source copy retained because final packaging refreshes the live preservation receipt timestamp."
+    }
+  ],
+  "browser_executable_sha256": "9f42a24176438f3ad7c49dc683e3038a4141aa97ac0903acfdb171f126e9689a"
+}

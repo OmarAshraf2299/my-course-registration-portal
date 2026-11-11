@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-11-11T18:54:44.939180+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT section_id, session_date, start_time, COUNT(*) AS n FROM class_sessions WHERE section_id=143 GROUP BY section_id,session_date,start_time HAVING COUNT(*)>1",
+  "rows": []
+}

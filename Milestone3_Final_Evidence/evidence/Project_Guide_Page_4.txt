@@ -1,0 +1,49 @@
+Source: Software_Maintenance_Project_Guide.pdf, physical page 4
+Original PDF SHA-256: 287110db4035979caaad26c566c9563f133666d8680288b9bb7b4b5905ae6bbf
+Text extracted locally using pypdf; replacement glyphs from the PDF encoding are preserved. No names/IDs added.
+
+Software Maintenance | Six Biweekly Milestones | Student Version 
+Milestone 3 — Corrective Maintenance 
+Due: End of Week 6   |   Goal: Fix documented defects without breaking existing behavior.  
+Required work 
+• Reproduce and document at least three pre-existing defects. 
+• For each defect: record steps to reproduce, root cause, changed files and expected behavior.  
+• Implement and commit fixes in traceable increments. 
+• Execute focused tests and a basic regression check for affected features.  
+• Update maintenance log and attach before/after evidence.  
+What to submit 
+• Working corrected software and commits linked to defect IDs.  
+• Three defect reports with before/after evidence. 
+• Test results and updated maintenance log. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

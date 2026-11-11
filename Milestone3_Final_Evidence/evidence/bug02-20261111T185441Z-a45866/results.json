@@ -1,0 +1,225 @@
+{
+  "run_id": "20261111T185441Z-a45866",
+  "completed_utc": "2026-11-11T18:54:46.853832+00:00",
+  "database": "smartcoursehub_m2_test",
+  "checks": [
+    {
+      "case": "initial-empty",
+      "status": "PASS",
+      "expected": "0 rows",
+      "actual": 0
+    },
+    {
+      "case": "initial-two",
+      "status": "PASS",
+      "expected": "2 distinct session IDs",
+      "actual": [
+        20,
+        21
+      ]
+    },
+    {
+      "case": "repeat-same-ids",
+      "status": "PASS",
+      "expected": [
+        20,
+        21
+      ],
+      "actual": [
+        20,
+        21
+      ]
+    },
+    {
+      "case": "repeat-two-rows",
+      "status": "PASS",
+      "expected": "2 rows",
+      "actual": 2
+    },
+    {
+      "case": "next-week-new-ids",
+      "status": "PASS",
+      "expected": "new IDs",
+      "actual": [
+        22,
+        23
+      ]
+    },
+    {
+      "case": "next-week-four-rows",
+      "status": "PASS",
+      "expected": "4 rows",
+      "actual": 4
+    },
+    {
+      "case": "overlap-preserves-existing-id",
+      "status": "PASS",
+      "expected": [
+        21
+      ],
+      "actual": [
+        21
+      ]
+    },
+    {
+      "case": "overlap-adds-only-missing",
+      "status": "PASS",
+      "expected": "5 rows",
+      "actual": 5
+    },
+    {
+      "case": "concurrent-all-success",
+      "status": "PASS",
+      "expected": "4 HTTP 200 responses",
+      "actual": [
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "case": "concurrent-same-ids",
+      "status": "PASS",
+      "expected": "same 2 IDs in all responses",
+      "actual": [
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          26
+        ]
+      ]
+    },
+    {
+      "case": "concurrent-two-persisted",
+      "status": "PASS",
+      "expected": "2 rows",
+      "actual": [
+        {
+          "id": "25",
+          "section_id": "143",
+          "session_date": "2026-11-23",
+          "start_time": "09:00:00.000000"
+        },
+        {
+          "id": "26",
+          "section_id": "143",
+          "session_date": "2026-11-25",
+          "start_time": "09:00:00.000000"
+        }
+      ]
+    },
+    {
+      "case": "no-new-duplicate-groups",
+      "status": "PASS",
+      "expected": "0 duplicate groups",
+      "actual": []
+    },
+    {
+      "case": "missing-section-404",
+      "status": "PASS",
+      "expected": "404",
+      "actual": 404
+    },
+    {
+      "case": "invalid-date-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "m2-session-rows-preserved",
+      "status": "PASS",
+      "expected": [
+        {
+          "id": "1",
+          "section_id": "137",
+          "session_date": "2026-11-09",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "2",
+          "section_id": "137",
+          "session_date": "2026-11-11",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "3",
+          "section_id": "137",
+          "session_date": "2026-11-09",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "4",
+          "section_id": "137",
+          "session_date": "2026-11-11",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        }
+      ],
+      "actual": [
+        {
+          "id": "1",
+          "section_id": "137",
+          "session_date": "2026-11-09",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "2",
+          "section_id": "137",
+          "session_date": "2026-11-11",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "3",
+          "section_id": "137",
+          "session_date": "2026-11-09",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        },
+        {
+          "id": "4",
+          "section_id": "137",
+          "session_date": "2026-11-11",
+          "start_time": "09:00:00.000000",
+          "duration_minutes": "90",
+          "created_by_teacher_id": "32"
+        }
+      ]
+    },
+    {
+      "case": "original-database-preserved",
+      "status": "PASS",
+      "expected": "All table fingerprints unchanged",
+      "actual": true
+    }
+  ],
+  "passed": 16,
+  "failed": 0,
+  "original_database_unchanged": true,
+  "error": null,
+  "status": "PASS"
+}

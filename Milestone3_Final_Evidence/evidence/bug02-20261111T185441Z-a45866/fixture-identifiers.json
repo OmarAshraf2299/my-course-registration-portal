@@ -1,0 +1,11 @@
+{
+  "instructor_id": 53,
+  "instructor_email": "m3-instructor-20261111t185441z-a45866@example.test",
+  "course_id": 58,
+  "section_id": 143,
+  "session_ids": [
+    20,
+    21
+  ],
+  "note": "Credentials are not retained. A fresh protected synthetic fixture may be used for subsequent verification."
+}

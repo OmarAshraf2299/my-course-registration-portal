@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-09T14:39:03.534749+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id,student_id,section_id,status FROM enrollments WHERE id=3",
+  "rows": [
+    {
+      "id": "3",
+      "student_id": "43",
+      "section_id": "140",
+      "status": "DROPPED"
+    }
+  ]
+}

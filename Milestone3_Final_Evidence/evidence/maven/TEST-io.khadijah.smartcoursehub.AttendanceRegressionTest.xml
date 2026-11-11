@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="13.173" tests="12" errors="0" skipped="0" failures="0">
+  <testcase name="nullBatchAndMalformedRecordsFailWithoutWrites" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.43" />
+  <testcase name="repeatedStudentWithinOneBatchUsesLastExplicitStatus" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.091" />
+  <testcase name="repeatedMarkingKeepsOneRecordAndItsId" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.05" />
+  <testcase name="concurrentFirstMarkingCreatesOneRecord" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.054" />
+  <testcase name="missingSessionAndWrongInstructorCannotWrite" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.032" />
+  <testcase name="emptyBatchDoesNotCreateOrChangeAttendance" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.065" />
+  <testcase name="unenrolledAndUnknownStudentsAreRejected" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.032" />
+  <testcase name="conflictingHistoricalStatusesNeedExplicitInstructorRemark" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.054" />
+  <testcase name="studentsAndSessionsRemainIndependent" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.071" />
+  <testcase name="allStatusUpdatesPreserveIdAndCorrectSummary" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.086" />
+  <testcase name="invalidLaterRecordRollsBackEntireBatch" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.04" />
+  <testcase name="identicalHistoricalDuplicatesCountOnceAndRemarkPreservesIds" classname="io.khadijah.smartcoursehub.AttendanceRegressionTest" time="0.036" />
+</testsuite>

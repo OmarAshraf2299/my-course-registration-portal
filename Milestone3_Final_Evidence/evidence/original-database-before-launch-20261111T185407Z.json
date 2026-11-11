@@ -1,0 +1,46 @@
+{
+  "captured_utc": "2026-11-11T18:54:07.660598+00:00",
+  "database": "smartcoursehub_db",
+  "fingerprints": {
+    "assignments": {
+      "row_count": 0,
+      "checksum": "0",
+      "ddl_sha256": "0c5dcf32432c6af1dc215e3bf3d3863ec9c066096a37fe67d69f9bc7fcb1e245"
+    },
+    "attendance": {
+      "row_count": 0,
+      "checksum": "0",
+      "ddl_sha256": "0b64724950cf3f63c488d474d87ec3a44c345c4d24a1616139f4ae9b94204108"
+    },
+    "class_sessions": {
+      "row_count": 0,
+      "checksum": "0",
+      "ddl_sha256": "9dccd0b9cabd7894cfb7bea874e6c0aa6a99e2be85ffba46a4c548fd26185af4"
+    },
+    "courses": {
+      "row_count": 51,
+      "checksum": "4008129982",
+      "ddl_sha256": "59e032a37f02a7ef139f296ae40ba931c562c2fb8c612c3462c8ac9ad50d9462"
+    },
+    "enrollments": {
+      "row_count": 0,
+      "checksum": "0",
+      "ddl_sha256": "e40f3bc0d271f02438834498e5389e39bab38a4df9c66b51763e69a66acd9f78"
+    },
+    "sections": {
+      "row_count": 136,
+      "checksum": "2170137734",
+      "ddl_sha256": "902fdd536e7194f51121ddb495e64374b65a9650bab4bad7f2d9df860db7ad0e"
+    },
+    "submissions": {
+      "row_count": 0,
+      "checksum": "0",
+      "ddl_sha256": "0917e2606c1cb3173976cd5f77bbcc5478a8da90c8800436fb17c209d1fb8a3e"
+    },
+    "users": {
+      "row_count": 31,
+      "checksum": "3131455395",
+      "ddl_sha256": "dcf572469579173d1fa903f896d8fba300fff115b63b8b2118886d00d3e175fe"
+    }
+  }
+}

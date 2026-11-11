@@ -1,7 +1,7 @@
 {
-  "captured_utc": "2026-11-09T14:33:11.784960+00:00",
+  "captured_utc": "2026-11-11T18:54:26.712123+00:00",
   "status": "VERIFIED",
-  "pid": 46708,
+  "pid": 9652,
   "connection": {
     "connected_database": "smartcoursehub_m2_test",
     "mysql_version": "8.0.44",
@@ -9,47 +9,47 @@
   },
   "ddl_auto": "none",
   "hikari_jdbc_lines": [
-    "2026-11-09T16:33:00.182+02:00 DEBUG 46708 --- [student-course-hub] [           main] com.zaxxer.hikari.HikariConfig           : jdbcUrl.........................jdbc:mysql://localhost:3306/smartcoursehub_m2_test"
+    "2026-11-11T20:54:15.450+02:00 DEBUG 9652 --- [student-course-hub] [           main] com.zaxxer.hikari.HikariConfig           : jdbcUrl.........................jdbc:mysql://localhost:3306/smartcoursehub_m2_test"
   ],
   "mysql_pool_connections": [
     {
-      "connection_id": "913",
+      "connection_id": "34",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "914",
+      "connection_id": "35",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "915",
+      "connection_id": "36",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "916",
+      "connection_id": "37",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "917",
+      "connection_id": "38",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "918",
+      "connection_id": "39",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "919",
+      "connection_id": "40",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "920",
+      "connection_id": "41",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "921",
+      "connection_id": "42",
       "database_name": "smartcoursehub_m2_test"
     },
     {
-      "connection_id": "922",
+      "connection_id": "43",
       "database_name": "smartcoursehub_m2_test"
     }
   ],

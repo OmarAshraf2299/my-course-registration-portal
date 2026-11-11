@@ -1,0 +1,11 @@
+{
+  "captured_utc": "2026-11-09T14:37:17.356977+00:00",
+  "compiler_target": "Java 17 (pom.xml java.version=17)",
+  "observed_class_major_version": 61,
+  "java17_class_target_verified": true,
+  "actual_runtime": "java version \"21.0.10\" 2026-01-20 LTS\nJava(TM) SE Runtime Environment (build 21.0.10+8-LTS-217)\nJava HotSpot(TM) 64-Bit Server VM (build 21.0.10+8-LTS-217, mixed mode, sharing)\n",
+  "java17_runtime_execution": "NOT RUN: installed JDK is Java 21",
+  "test_datasource": "jdbc:h2:mem:smartcoursehub_test;MODE=MySQL;DB_CLOSE_DELAY=-1",
+  "live_datasource": "jdbc:mysql://localhost:3306/smartcoursehub_m2_test",
+  "live_ddl_auto": "none"
+}

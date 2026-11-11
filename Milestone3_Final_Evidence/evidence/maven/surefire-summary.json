@@ -1,0 +1,299 @@
+{
+  "captured_utc": "2026-11-11T18:57:10.949247+00:00",
+  "source": "Latest server/target/surefire-reports TEST-*.xml files",
+  "totals": {
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "name": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "13.173",
+      "source_sha256": "e534faefe75232e22ece69c84a0aa24e3eff23be73f24d7b3a657452797c1fbe",
+      "testcases": [
+        {
+          "name": "nullBatchAndMalformedRecordsFailWithoutWrites",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.43",
+          "result": "PASS"
+        },
+        {
+          "name": "repeatedStudentWithinOneBatchUsesLastExplicitStatus",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.091",
+          "result": "PASS"
+        },
+        {
+          "name": "repeatedMarkingKeepsOneRecordAndItsId",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.05",
+          "result": "PASS"
+        },
+        {
+          "name": "concurrentFirstMarkingCreatesOneRecord",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.054",
+          "result": "PASS"
+        },
+        {
+          "name": "missingSessionAndWrongInstructorCannotWrite",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.032",
+          "result": "PASS"
+        },
+        {
+          "name": "emptyBatchDoesNotCreateOrChangeAttendance",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.065",
+          "result": "PASS"
+        },
+        {
+          "name": "unenrolledAndUnknownStudentsAreRejected",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.032",
+          "result": "PASS"
+        },
+        {
+          "name": "conflictingHistoricalStatusesNeedExplicitInstructorRemark",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.054",
+          "result": "PASS"
+        },
+        {
+          "name": "studentsAndSessionsRemainIndependent",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.071",
+          "result": "PASS"
+        },
+        {
+          "name": "allStatusUpdatesPreserveIdAndCorrectSummary",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.086",
+          "result": "PASS"
+        },
+        {
+          "name": "invalidLaterRecordRollsBackEntireBatch",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.04",
+          "result": "PASS"
+        },
+        {
+          "name": "identicalHistoricalDuplicatesCountOnceAndRemarkPreservesIds",
+          "class": "io.khadijah.smartcoursehub.AttendanceRegressionTest",
+          "seconds": "0.036",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.361",
+      "source_sha256": "3c0a6d33b90436148e5434a14102e3e33b331e76b2540cd7f9ca1956623e983f",
+      "testcases": [
+        {
+          "name": "existingAdminCanLoginAndProvisionPrivilegedAccounts",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.879",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[1]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.022",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[2]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.011",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[3]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.012",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[4]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.012",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[5]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.011",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[6]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.01",
+          "result": "PASS"
+        },
+        {
+          "name": "publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[7]",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.01",
+          "result": "PASS"
+        },
+        {
+          "name": "studentRegistrationLoginAndAdminDenial",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.326",
+          "result": "PASS"
+        },
+        {
+          "name": "missingRoleIsRejected",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.018",
+          "result": "PASS"
+        },
+        {
+          "name": "anonymousCannotUseAdminEndpoints",
+          "class": "io.khadijah.smartcoursehub.AuthSecurityRegressionTest",
+          "seconds": "0.008",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "io.khadijah.smartcoursehub.SmartCourseHubApplicationTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.828",
+      "source_sha256": "0e54e8609b9bf36a489f72a848cfa2cfcdeb184cdcf2be0bc900173cec876e15",
+      "testcases": [
+        {
+          "name": "contextLoads",
+          "class": "io.khadijah.smartcoursehub.SmartCourseHubApplicationTests",
+          "seconds": "0.004",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "name": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.119",
+      "source_sha256": "c970ddbaad84dc23160415ade2e0cead48e59e97389a887dbbd247972e94a29b",
+      "testcases": [
+        {
+          "name": "repeatsReuseIdsAndAnotherWeekCreatesNewRows",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.032",
+          "result": "PASS"
+        },
+        {
+          "name": "historicalDuplicatesArePreservedWithoutAddingMore",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.019",
+          "result": "PASS"
+        },
+        {
+          "name": "partialWeekAndDifferentStartTimesPreserveExistingSessions",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.014",
+          "result": "PASS"
+        },
+        {
+          "name": "concurrentGenerationCreatesOnlyOnePair",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.022",
+          "result": "PASS"
+        },
+        {
+          "name": "initialGenerationCreatesTwoScheduledSessions",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.011",
+          "result": "PASS"
+        },
+        {
+          "name": "missingSectionDoesNotInsertSessions",
+          "class": "io.khadijah.smartcoursehub.WeeklySessionRegressionTest",
+          "seconds": "0.008",
+          "result": "PASS"
+        }
+      ]
+    }
+  ],
+  "xml_redactions": "Properties and system output omitted; failure details sanitized",
+  "logs": [
+    {
+      "file": "evidence/maven/bug01-maven-retry.log",
+      "private_original_sha256": "1a1f4eb6e84420bdfc3d7ce1d35a73608708f27d437cabdebd8a67a4c0b10254",
+      "sanitized_sha256": "d6486d289a83ce1fc344d8f1c854baaf22647470e8fe93420a9203fc5903f0d1",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/bug01-maven.log",
+      "private_original_sha256": "705091e54e76e293a254888568695be6cc583ca949b6007698f132214f57fe69",
+      "sanitized_sha256": "99397813cacfc72d9e1e19492c9c723072a2ba4b3398a9c320ca8874d520f194",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/bug02-final-maven.log",
+      "private_original_sha256": "173973b8728a80ba93bfecd52e04dc1e4236c508876e7f6355f1a1a3e8e90d32",
+      "sanitized_sha256": "e1c5b7f438b76a806931bfa265936369cddd90817f5400970e99ef4d5d51f611",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/bug02-maven.log",
+      "private_original_sha256": "8d36a1baa979aa018d6859882a682b51d79f756cf50f421e0d5fadb864bf36ef",
+      "sanitized_sha256": "4721c349a02c1177fd7cd12d0682d0d3688ed4917581f2bcbf431283f067f6f4",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/bug03-maven.log",
+      "private_original_sha256": "a7243afd14af54f01d768e5ce3d0595599d8e48912da8d424aeead573e95d07c",
+      "sanitized_sha256": "87c57e8a6e37a1dc977fd99d7eac84e4d93f3bfbf8af3cb792b474ccc3470da6",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/full-suite-maven.log",
+      "private_original_sha256": "907ad72f17e1a803f7133536b33cd0713e15849291952939c7f44aa7a1703852",
+      "sanitized_sha256": "2935bda4d5ef4e0395bb6af4a16fe0560a4cf0af13df2efd54bb302053a0ce2a",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/resume-bug01-maven.log",
+      "private_original_sha256": "5eb0c36c29e621c7369726b0dfcad9da6bf7a406593d7a90f0f3199277ac0f8b",
+      "sanitized_sha256": "2b37cc298381571f76da22c28d4191865579b16295a83afb5f3dc0b2313a4285",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/resume-bug02-maven.log",
+      "private_original_sha256": "73f2c54fd53c98d91694b7ef939fdd0450b4c8b6e721f3e3330bce2a0fe4c8ce",
+      "sanitized_sha256": "474f8fe00661e5ade800c05a39579688eb8eef61af6d3b9e232aec173da43f26",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/resume-bug03-maven.log",
+      "private_original_sha256": "31ef108e5e204c12f566efb81c586bff23d6d0a20115330726bbccb606468035",
+      "sanitized_sha256": "bce26e6cd727000b0e6b982ed8565f15e2db90d2db0a98bc8efda3f5201948f9",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    },
+    {
+      "file": "evidence/maven/resume-full-suite-maven.log",
+      "private_original_sha256": "0ec9f04f993ae1b6f2bd8252f79a866af54be5f40871063d91d15511adf51f36",
+      "sanitized_sha256": "57bec0dd8f6d7f73442454ef030884c9e1092bd2327de2632aef74b0bd4e36f9",
+      "method": "Credential, token, hash, email, and local user-path redaction; original retained privately"
+    }
+  ]
+}

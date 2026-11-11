@@ -1,0 +1,2679 @@
+[
+  {
+    "timestamp": "2026-11-09T14:39:41.973648+00:00",
+    "label": "existing administrator login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "[REDACTED]",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 1,
+          "name": "[REDACTED]",
+          "email": "[REDACTED]",
+          "role": "ADMIN"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.154402+00:00",
+    "label": "administrator provisions synthetic instructor",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 48
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.327443+00:00",
+    "label": "synthetic instructor login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 48,
+          "name": "M3 Synthetic Instructor",
+          "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+          "role": "INSTRUCTOR"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.487883+00:00",
+    "label": "public synthetic student registration",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Student",
+        "email": "m3-student-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]",
+        "role": "STUDENT"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Registration successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 49,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261109t143939z-d2f943@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.666193+00:00",
+    "label": "synthetic student login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 49,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261109t143939z-d2f943@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.782400+00:00",
+    "label": "create synthetic course",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/courses",
+      "authenticated": true,
+      "body": {
+        "code": "M3-20261109T143939Z-d2f943",
+        "title": "M3 Synthetic Corrective Course",
+        "creditHours": 3,
+        "description": "Isolated corrective maintenance verification"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Course created successfully",
+        "data": 57
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:42.888436+00:00",
+    "label": "create synthetic section",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/sections",
+      "authenticated": true,
+      "body": {
+        "courseId": 57,
+        "instructorId": 48,
+        "semester": "M3-SYNTHETIC",
+        "capacity": 10,
+        "room": "M3-TEST",
+        "schedule": "Synthetic Monday Wednesday 09:00"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Section created successfully",
+        "data": 142
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:43.557354+00:00",
+    "label": "student course browsing",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/sections/available",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 1,
+            "courseId": 1,
+            "courseCode": "CSE-101",
+            "courseTitle": "Application of Information & Communication Technologies",
+            "instructorId": 2,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 2,
+            "courseId": 2,
+            "courseCode": "CSE-102",
+            "courseTitle": "Application of Information & Communication Technologies Lab",
+            "instructorId": 3,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 3,
+            "courseId": 3,
+            "courseCode": "CSE-103",
+            "courseTitle": "Functional English",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 4,
+            "courseId": 4,
+            "courseCode": "CSE-104",
+            "courseTitle": "Programming Fundamentals",
+            "instructorId": 5,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 5,
+            "courseId": 5,
+            "courseCode": "CSE-105",
+            "courseTitle": "Programming Fundamentals Lab",
+            "instructorId": 6,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 6,
+            "courseId": 6,
+            "courseCode": "CSE-106",
+            "courseTitle": "Applied Physics",
+            "instructorId": 7,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 7,
+            "courseId": 7,
+            "courseCode": "CSE-107",
+            "courseTitle": "Applied Physics Lab",
+            "instructorId": 8,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 8,
+            "courseId": 8,
+            "courseCode": "CSE-108",
+            "courseTitle": "Intro To Liberal Arts (Social Science Elective)",
+            "instructorId": 9,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 9,
+            "courseId": 9,
+            "courseCode": "CSE-109",
+            "courseTitle": "Math \u2013 I (Pre Med, Non-Credit)",
+            "instructorId": 10,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 10,
+            "courseId": 1,
+            "courseCode": "CSE-101",
+            "courseTitle": "Application of Information & Communication Technologies",
+            "instructorId": 2,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 11,
+            "courseId": 2,
+            "courseCode": "CSE-102",
+            "courseTitle": "Application of Information & Communication Technologies Lab",
+            "instructorId": 11,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 12,
+            "courseId": 3,
+            "courseCode": "CSE-103",
+            "courseTitle": "Functional English",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 13,
+            "courseId": 4,
+            "courseCode": "CSE-104",
+            "courseTitle": "Programming Fundamentals",
+            "instructorId": 5,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 14,
+            "courseId": 5,
+            "courseCode": "CSE-105",
+            "courseTitle": "Programming Fundamentals Lab",
+            "instructorId": 12,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 15,
+            "courseId": 6,
+            "courseCode": "CSE-106",
+            "courseTitle": "Applied Physics",
+            "instructorId": 7,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 16,
+            "courseId": 7,
+            "courseCode": "CSE-107",
+            "courseTitle": "Applied Physics Lab",
+            "instructorId": 8,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 17,
+            "courseId": 8,
+            "courseCode": "CSE-108",
+            "courseTitle": "Intro To Liberal Arts (Social Science Elective)",
+            "instructorId": 9,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 18,
+            "courseId": 9,
+            "courseCode": "CSE-109",
+            "courseTitle": "Math \u2013 I (Pre Med, Non-Credit)",
+            "instructorId": 10,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 19,
+            "courseId": 10,
+            "courseCode": "CSE-119",
+            "courseTitle": "Object Oriented Programming",
+            "instructorId": 13,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 20,
+            "courseId": 11,
+            "courseCode": "CSE-120",
+            "courseTitle": "Object Oriented Programming Lab",
+            "instructorId": 3,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 21,
+            "courseId": 12,
+            "courseCode": "CSE-121",
+            "courseTitle": "Communication Skills",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 22,
+            "courseId": 13,
+            "courseCode": "CSE-122",
+            "courseTitle": "Data Structure and Algorithm",
+            "instructorId": 5,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 23,
+            "courseId": 14,
+            "courseCode": "CSE-123",
+            "courseTitle": "Data Structure and Algorithm Lab",
+            "instructorId": 6,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 24,
+            "courseId": 15,
+            "courseCode": "CSE-124",
+            "courseTitle": "Software Engineering",
+            "instructorId": 14,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 25,
+            "courseId": 16,
+            "courseCode": "CSE-125",
+            "courseTitle": "Database Systems",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 26,
+            "courseId": 17,
+            "courseCode": "CSE-126",
+            "courseTitle": "Database Systems Lab",
+            "instructorId": 16,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 27,
+            "courseId": 18,
+            "courseCode": "CSE-127",
+            "courseTitle": "Math III- Discrete Mathematics",
+            "instructorId": 17,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 28,
+            "courseId": 10,
+            "courseCode": "CSE-119",
+            "courseTitle": "Object Oriented Programming",
+            "instructorId": 13,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 29,
+            "courseId": 11,
+            "courseCode": "CSE-120",
+            "courseTitle": "Object Oriented Programming Lab",
+            "instructorId": 11,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 30,
+            "courseId": 12,
+            "courseCode": "CSE-121",
+            "courseTitle": "Communication Skills",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 31,
+            "courseId": 13,
+            "courseCode": "CSE-122",
+            "courseTitle": "Data Structure and Algorithm",
+            "instructorId": 5,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 32,
+            "courseId": 14,
+            "courseCode": "CSE-123",
+            "courseTitle": "Data Structure and Algorithm Lab",
+            "instructorId": 12,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 33,
+            "courseId": 15,
+            "courseCode": "CSE-124",
+            "courseTitle": "Software Engineering",
+            "instructorId": 14,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 34,
+            "courseId": 16,
+            "courseCode": "CSE-125",
+            "courseTitle": "Database Systems",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 35,
+            "courseId": 17,
+            "courseCode": "CSE-126",
+            "courseTitle": "Database Systems Lab",
+            "instructorId": 16,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 36,
+            "courseId": 18,
+            "courseCode": "CSE-127",
+            "courseTitle": "Math III- Discrete Mathematics",
+            "instructorId": 17,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 37,
+            "courseId": 19,
+            "courseCode": "CSE-137",
+            "courseTitle": "Web Engineering",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 38,
+            "courseId": 20,
+            "courseCode": "CSE-138",
+            "courseTitle": "Web Engineering Lab",
+            "instructorId": 11,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 39,
+            "courseId": 21,
+            "courseCode": "CSE-139",
+            "courseTitle": "Human Computer Interaction",
+            "instructorId": 19,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 40,
+            "courseId": 22,
+            "courseCode": "CSE-140",
+            "courseTitle": "Human Computer Interaction Lab",
+            "instructorId": 6,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 41,
+            "courseId": 23,
+            "courseCode": "CSE-141",
+            "courseTitle": "Software Project Management",
+            "instructorId": 20,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 42,
+            "courseId": 24,
+            "courseCode": "CSE-142",
+            "courseTitle": "Professional Practices",
+            "instructorId": 16,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 43,
+            "courseId": 25,
+            "courseCode": "CSE-143",
+            "courseTitle": "Software Architecture and Design Patterns",
+            "instructorId": 21,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 44,
+            "courseId": 26,
+            "courseCode": "CSE-144",
+            "courseTitle": "Software Architecture and Design Patterns Lab",
+            "instructorId": 3,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 45,
+            "courseId": 27,
+            "courseCode": "CSE-145",
+            "courseTitle": "Software Construction and Development",
+            "instructorId": 13,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 46,
+            "courseId": 28,
+            "courseCode": "CSE-146",
+            "courseTitle": "Software Construction and Development Lab",
+            "instructorId": 12,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 47,
+            "courseId": 19,
+            "courseCode": "CSE-137",
+            "courseTitle": "Web Engineering",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 48,
+            "courseId": 20,
+            "courseCode": "CSE-138",
+            "courseTitle": "Web Engineering Lab",
+            "instructorId": 16,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 49,
+            "courseId": 21,
+            "courseCode": "CSE-139",
+            "courseTitle": "Human Computer Interaction",
+            "instructorId": 19,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 50,
+            "courseId": 22,
+            "courseCode": "CSE-140",
+            "courseTitle": "Human Computer Interaction Lab",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 51,
+            "courseId": 23,
+            "courseCode": "CSE-141",
+            "courseTitle": "Software Project Management",
+            "instructorId": 20,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 52,
+            "courseId": 24,
+            "courseCode": "CSE-142",
+            "courseTitle": "Professional Practices",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 53,
+            "courseId": 25,
+            "courseCode": "CSE-143",
+            "courseTitle": "Software Architecture and Design Patterns",
+            "instructorId": 21,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 54,
+            "courseId": 26,
+            "courseCode": "CSE-144",
+            "courseTitle": "Software Architecture and Design Patterns Lab",
+            "instructorId": 11,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 55,
+            "courseId": 27,
+            "courseCode": "CSE-145",
+            "courseTitle": "Software Construction and Development",
+            "instructorId": 13,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 56,
+            "courseId": 28,
+            "courseCode": "CSE-146",
+            "courseTitle": "Software Construction and Development Lab",
+            "instructorId": 6,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 57,
+            "courseId": 29,
+            "courseCode": "CSE-157",
+            "courseTitle": "Final Year Project I",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 58,
+            "courseId": 30,
+            "courseCode": "CSE-158",
+            "courseTitle": "Software Quality Engineering",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 59,
+            "courseId": 31,
+            "courseCode": "CSE-159",
+            "courseTitle": "Software Quality Engineering Lab",
+            "instructorId": 16,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 60,
+            "courseId": 32,
+            "courseCode": "CSE-160",
+            "courseTitle": "Software Requirement Engineering",
+            "instructorId": 14,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 61,
+            "courseId": 33,
+            "courseCode": "CSE-161",
+            "courseTitle": "Software Requirement Engineering Lab",
+            "instructorId": 12,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 62,
+            "courseId": 34,
+            "courseCode": "CSE-162",
+            "courseTitle": "Technical & Business Writing",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 63,
+            "courseId": 29,
+            "courseCode": "CSE-157",
+            "courseTitle": "Final Year Project I",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 64,
+            "courseId": 30,
+            "courseCode": "CSE-158",
+            "courseTitle": "Software Quality Engineering",
+            "instructorId": 15,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 65,
+            "courseId": 31,
+            "courseCode": "CSE-159",
+            "courseTitle": "Software Quality Engineering Lab",
+            "instructorId": 6,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 66,
+            "courseId": 32,
+            "courseCode": "CSE-160",
+            "courseTitle": "Software Requirement Engineering",
+            "instructorId": 14,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 67,
+            "courseId": 33,
+            "courseCode": "CSE-161",
+            "courseTitle": "Software Requirement Engineering Lab",
+            "instructorId": 11,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 68,
+            "courseId": 34,
+            "courseCode": "CSE-162",
+            "courseTitle": "Technical & Business Writing",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Software Engineering Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 69,
+            "courseId": 4,
+            "courseCode": "CSE-104",
+            "courseTitle": "Programming Fundamentals",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 70,
+            "courseId": 5,
+            "courseCode": "CSE-105",
+            "courseTitle": "Programming Fundamentals Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 71,
+            "courseId": 1,
+            "courseCode": "CSE-101",
+            "courseTitle": "Application of Information & Communication Technologies",
+            "instructorId": 24,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 72,
+            "courseId": 2,
+            "courseCode": "CSE-102",
+            "courseTitle": "Application of Information & Communication Technologies Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 73,
+            "courseId": 6,
+            "courseCode": "CSE-106",
+            "courseTitle": "Applied Physics",
+            "instructorId": 25,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 74,
+            "courseId": 7,
+            "courseCode": "CSE-107",
+            "courseTitle": "Applied Physics Lab",
+            "instructorId": 25,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 75,
+            "courseId": 8,
+            "courseCode": "CSE-108",
+            "courseTitle": "Intro To Liberal Arts (Social Science Elective)",
+            "instructorId": 9,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 76,
+            "courseId": 3,
+            "courseCode": "CSE-103",
+            "courseTitle": "Functional English",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 77,
+            "courseId": 9,
+            "courseCode": "CSE-109",
+            "courseTitle": "Math \u2013 I (Pre Med, Non-Credit)",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 78,
+            "courseId": 4,
+            "courseCode": "CSE-104",
+            "courseTitle": "Programming Fundamentals",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 79,
+            "courseId": 5,
+            "courseCode": "CSE-105",
+            "courseTitle": "Programming Fundamentals Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 80,
+            "courseId": 1,
+            "courseCode": "CSE-101",
+            "courseTitle": "Application of Information & Communication Technologies",
+            "instructorId": 24,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 81,
+            "courseId": 2,
+            "courseCode": "CSE-102",
+            "courseTitle": "Application of Information & Communication Technologies Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 82,
+            "courseId": 6,
+            "courseCode": "CSE-106",
+            "courseTitle": "Applied Physics",
+            "instructorId": 25,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 83,
+            "courseId": 7,
+            "courseCode": "CSE-107",
+            "courseTitle": "Applied Physics Lab",
+            "instructorId": 25,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 84,
+            "courseId": 8,
+            "courseCode": "CSE-108",
+            "courseTitle": "Intro To Liberal Arts (Social Science Elective)",
+            "instructorId": 9,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 85,
+            "courseId": 3,
+            "courseCode": "CSE-103",
+            "courseTitle": "Functional English",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 86,
+            "courseId": 9,
+            "courseCode": "CSE-109",
+            "courseTitle": "Math \u2013 I (Pre Med, Non-Credit)",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester I",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 87,
+            "courseId": 10,
+            "courseCode": "CSE-119",
+            "courseTitle": "Object Oriented Programming",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 88,
+            "courseId": 11,
+            "courseCode": "CSE-120",
+            "courseTitle": "Object Oriented Programming Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 89,
+            "courseId": 13,
+            "courseCode": "CSE-122",
+            "courseTitle": "Data Structure and Algorithm",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 90,
+            "courseId": 14,
+            "courseCode": "CSE-123",
+            "courseTitle": "Data Structure and Algorithm Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 91,
+            "courseId": 35,
+            "courseCode": "CSE-191",
+            "courseTitle": "Linear Algebra",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 92,
+            "courseId": 12,
+            "courseCode": "CSE-121",
+            "courseTitle": "Communication Skills",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 93,
+            "courseId": 36,
+            "courseCode": "CSE-193",
+            "courseTitle": "Computer Organization & Assembly Language",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 94,
+            "courseId": 37,
+            "courseCode": "CSE-194",
+            "courseTitle": "Computer Organization & Assembly Language Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 95,
+            "courseId": 38,
+            "courseCode": "CSE-195",
+            "courseTitle": "Digital Logic and Design",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 96,
+            "courseId": 10,
+            "courseCode": "CSE-119",
+            "courseTitle": "Object Oriented Programming",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 97,
+            "courseId": 11,
+            "courseCode": "CSE-120",
+            "courseTitle": "Object Oriented Programming Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 98,
+            "courseId": 13,
+            "courseCode": "CSE-122",
+            "courseTitle": "Data Structure and Algorithm",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 99,
+            "courseId": 14,
+            "courseCode": "CSE-123",
+            "courseTitle": "Data Structure and Algorithm Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 100,
+            "courseId": 35,
+            "courseCode": "CSE-191",
+            "courseTitle": "Linear Algebra",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 101,
+            "courseId": 12,
+            "courseCode": "CSE-121",
+            "courseTitle": "Communication Skills",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 102,
+            "courseId": 36,
+            "courseCode": "CSE-193",
+            "courseTitle": "Computer Organization & Assembly Language",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 103,
+            "courseId": 37,
+            "courseCode": "CSE-194",
+            "courseTitle": "Computer Organization & Assembly Language Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 104,
+            "courseId": 38,
+            "courseCode": "CSE-195",
+            "courseTitle": "Digital Logic and Design",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester III",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 105,
+            "courseId": 39,
+            "courseCode": "CSE-205",
+            "courseTitle": "Compiler Construction",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 106,
+            "courseId": 40,
+            "courseCode": "CSE-206",
+            "courseTitle": "Compiler Construction Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 107,
+            "courseId": 41,
+            "courseCode": "CSE-207",
+            "courseTitle": "Operating System",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 108,
+            "courseId": 42,
+            "courseCode": "CSE-208",
+            "courseTitle": "Operating System Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 109,
+            "courseId": 43,
+            "courseCode": "CSE-209",
+            "courseTitle": "Database System",
+            "instructorId": 30,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 110,
+            "courseId": 44,
+            "courseCode": "CSE-210",
+            "courseTitle": "Database System Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 111,
+            "courseId": 15,
+            "courseCode": "CSE-124",
+            "courseTitle": "Software Engineering",
+            "instructorId": 21,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 112,
+            "courseId": 45,
+            "courseCode": "CSE-212",
+            "courseTitle": "Probability and Statistics",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 113,
+            "courseId": 46,
+            "courseCode": "CSE-213",
+            "courseTitle": "Computer Networks",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 114,
+            "courseId": 39,
+            "courseCode": "CSE-205",
+            "courseTitle": "Compiler Construction",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 115,
+            "courseId": 40,
+            "courseCode": "CSE-206",
+            "courseTitle": "Compiler Construction Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 116,
+            "courseId": 41,
+            "courseCode": "CSE-207",
+            "courseTitle": "Operating System",
+            "instructorId": 22,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 117,
+            "courseId": 42,
+            "courseCode": "CSE-208",
+            "courseTitle": "Operating System Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 118,
+            "courseId": 43,
+            "courseCode": "CSE-209",
+            "courseTitle": "Database System",
+            "instructorId": 30,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 119,
+            "courseId": 44,
+            "courseCode": "CSE-210",
+            "courseTitle": "Database System Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 120,
+            "courseId": 15,
+            "courseCode": "CSE-124",
+            "courseTitle": "Software Engineering",
+            "instructorId": 21,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 121,
+            "courseId": 45,
+            "courseCode": "CSE-212",
+            "courseTitle": "Probability and Statistics",
+            "instructorId": 26,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 122,
+            "courseId": 46,
+            "courseCode": "CSE-213",
+            "courseTitle": "Computer Networks",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester V",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 123,
+            "courseId": 29,
+            "courseCode": "CSE-157",
+            "courseTitle": "Final Year Project I",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 124,
+            "courseId": 47,
+            "courseCode": "CSE-224",
+            "courseTitle": "Computer Graphics",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 125,
+            "courseId": 48,
+            "courseCode": "CSE-225",
+            "courseTitle": "Computer Graphics Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 126,
+            "courseId": 49,
+            "courseCode": "CSE-226",
+            "courseTitle": "Information Security",
+            "instructorId": 30,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 127,
+            "courseId": 50,
+            "courseCode": "CSE-227",
+            "courseTitle": "Information Security Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 128,
+            "courseId": 34,
+            "courseCode": "CSE-162",
+            "courseTitle": "Technical & Business Writing",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 129,
+            "courseId": 51,
+            "courseCode": "CSE-229",
+            "courseTitle": "Distributed Computing",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section A - TBD"
+          },
+          {
+            "id": 130,
+            "courseId": 29,
+            "courseCode": "CSE-157",
+            "courseTitle": "Final Year Project I",
+            "instructorId": 18,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 131,
+            "courseId": 47,
+            "courseCode": "CSE-224",
+            "courseTitle": "Computer Graphics",
+            "instructorId": 29,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 132,
+            "courseId": 48,
+            "courseCode": "CSE-225",
+            "courseTitle": "Computer Graphics Lab",
+            "instructorId": 27,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 133,
+            "courseId": 49,
+            "courseCode": "CSE-226",
+            "courseTitle": "Information Security",
+            "instructorId": 30,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 134,
+            "courseId": 50,
+            "courseCode": "CSE-227",
+            "courseTitle": "Information Security Lab",
+            "instructorId": 23,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 135,
+            "courseId": 34,
+            "courseCode": "CSE-162",
+            "courseTitle": "Technical & Business Writing",
+            "instructorId": 4,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 136,
+            "courseId": 51,
+            "courseCode": "CSE-229",
+            "courseTitle": "Distributed Computing",
+            "instructorId": 28,
+            "instructorName": "[REDACTED]",
+            "semester": "BS Computer Science Semester VII",
+            "capacity": 30,
+            "enrolledCount": 0,
+            "availableSeats": 30,
+            "room": "TBD",
+            "schedule": "Section B - TBD"
+          },
+          {
+            "id": 137,
+            "courseId": 52,
+            "courseCode": "M2-20261108T135939Z-4b2a49",
+            "courseTitle": "M2 Synthetic Assessment Course",
+            "instructorId": 32,
+            "instructorName": "[REDACTED]",
+            "semester": "M2-SYNTHETIC",
+            "capacity": 10,
+            "enrolledCount": 1,
+            "availableSeats": 9,
+            "room": "M2-TEST",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          },
+          {
+            "id": 138,
+            "courseId": 53,
+            "courseCode": "M3-20261109T143316Z-b2d8a6",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorId": 37,
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "capacity": 10,
+            "enrolledCount": 0,
+            "availableSeats": 10,
+            "room": "M3-TEST",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          },
+          {
+            "id": 139,
+            "courseId": 54,
+            "courseCode": "M3-20261109T143821Z-3c652e",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorId": 38,
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "capacity": 10,
+            "enrolledCount": 1,
+            "availableSeats": 9,
+            "room": "M3-TEST",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          },
+          {
+            "id": 140,
+            "courseId": 55,
+            "courseCode": "M3-20261109T143858Z-a22497",
+            "courseTitle": "M3 Synthetic Updated Course",
+            "instructorId": 42,
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "capacity": 12,
+            "enrolledCount": 1,
+            "availableSeats": 11,
+            "room": "M3-UPDATED",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          },
+          {
+            "id": 141,
+            "courseId": 56,
+            "courseCode": "M3-20261109T143925Z-d3e605",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorId": 44,
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "capacity": 10,
+            "enrolledCount": 1,
+            "availableSeats": 9,
+            "room": "M3-TEST",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          },
+          {
+            "id": 142,
+            "courseId": 57,
+            "courseCode": "M3-20261109T143939Z-d2f943",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorId": 48,
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "capacity": 10,
+            "enrolledCount": 0,
+            "availableSeats": 10,
+            "room": "M3-TEST",
+            "schedule": "Synthetic Monday Wednesday 09:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:43.819503+00:00",
+    "label": "student enrollment",
+    "request": {
+      "method": "POST",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": {
+        "sectionId": 142
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Enrollment successful",
+        "data": 5
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:44.055123+00:00",
+    "label": "duplicate enrollment rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": {
+        "sectionId": 142
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "You are already enrolled in a section for this course.",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:44.312743+00:00",
+    "label": "active student enrollments",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 5,
+            "studentId": 49,
+            "studentName": "M3 Synthetic Student",
+            "sectionId": 142,
+            "courseCode": "M3-20261109T143939Z-d2f943",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "schedule": "Synthetic Monday Wednesday 09:00",
+            "room": "M3-TEST",
+            "status": "ENROLLED"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:44.574962+00:00",
+    "label": "instructor section roster",
+    "request": {
+      "method": "GET",
+      "path": "/api/instructor/sections/142/students",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 5,
+            "studentId": 49,
+            "studentName": "M3 Synthetic Student",
+            "sectionId": 142,
+            "courseCode": "M3-20261109T143939Z-d2f943",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "instructorName": "M3 Synthetic Instructor",
+            "semester": "M3-SYNTHETIC",
+            "schedule": "Synthetic Monday Wednesday 09:00",
+            "room": "M3-TEST",
+            "status": "ENROLLED"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:44.835979+00:00",
+    "label": "withdraw fixture enrollment",
+    "request": {
+      "method": "POST",
+      "path": "/api/student/enrollments/5/drop",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Course dropped successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:45.168661+00:00",
+    "label": "active enrollments after withdrawal",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:45.413374+00:00",
+    "label": "reenroll dropped enrollment",
+    "request": {
+      "method": "POST",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": {
+        "sectionId": 142
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Enrollment successful",
+        "data": 5
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:45.733039+00:00",
+    "label": "administrator updates synthetic course",
+    "request": {
+      "method": "PUT",
+      "path": "/api/admin/courses/57",
+      "authenticated": true,
+      "body": {
+        "title": "M3 Synthetic Updated Course",
+        "creditHours": 4
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Course updated successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:46.007814+00:00",
+    "label": "administrator retrieves updated course",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/courses/57",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": {
+          "id": 57,
+          "code": "M3-20261109T143939Z-d2f943",
+          "title": "M3 Synthetic Updated Course",
+          "description": "Isolated corrective maintenance verification",
+          "creditHours": 4
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:46.323900+00:00",
+    "label": "administrator updates synthetic section",
+    "request": {
+      "method": "PUT",
+      "path": "/api/admin/sections/142",
+      "authenticated": true,
+      "body": {
+        "room": "M3-UPDATED",
+        "capacity": 12
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Section updated successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:46.692235+00:00",
+    "label": "administrator retrieves updated section",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/sections/142",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": {
+          "id": 142,
+          "courseId": 57,
+          "courseCode": "M3-20261109T143939Z-d2f943",
+          "courseTitle": "M3 Synthetic Updated Course",
+          "instructorId": 48,
+          "instructorName": "M3 Synthetic Instructor",
+          "semester": "M3-SYNTHETIC",
+          "capacity": 12,
+          "enrolledCount": 1,
+          "availableSeats": 11,
+          "room": "M3-UPDATED",
+          "schedule": "Synthetic Monday Wednesday 09:00"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:47.022431+00:00",
+    "label": "regression weekly generation",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/142/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 18,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 142,
+              "courseId": 57,
+              "instructorId": 48,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 12,
+              "room": "M3-UPDATED",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 48,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 19,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 142,
+              "courseId": 57,
+              "instructorId": 48,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 12,
+              "room": "M3-UPDATED",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 48,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:47.315619+00:00",
+    "label": "regression weekly replay",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/142/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 18,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 142,
+              "courseId": 57,
+              "instructorId": 48,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 12,
+              "room": "M3-UPDATED",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 48,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 19,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 142,
+              "courseId": 57,
+              "instructorId": 48,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 12,
+              "room": "M3-UPDATED",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 48,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261109t143939z-d2f943@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:47.655246+00:00",
+    "label": "administrator deactivates synthetic student",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users/49/deactivate",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User deactivated successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:48.011673+00:00",
+    "label": "disabled student login rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Account is deactivated. Please contact administrator.",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:48.322806+00:00",
+    "label": "administrator reactivates synthetic student",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users/49/activate",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User activated successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:48.678696+00:00",
+    "label": "reactivated student login succeeds",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261109t143939z-d2f943@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 49,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261109t143939z-d2f943@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-09T14:39:48.986480+00:00",
+    "label": "student admin API remains forbidden",
+    "request": {
+      "method": "GET",
+      "path": "/api/admin/users/role/M3_NONEXISTENT",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 403,
+      "body": ""
+    }
+  }
+]

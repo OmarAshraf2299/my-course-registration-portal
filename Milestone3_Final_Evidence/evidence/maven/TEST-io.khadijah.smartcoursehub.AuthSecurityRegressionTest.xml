@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="1.361" tests="11" errors="0" skipped="0" failures="0">
+  <testcase name="existingAdminCanLoginAndProvisionPrivilegedAccounts" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.879" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[1]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.022" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[2]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.011" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[3]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.012" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[4]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.012" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[5]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.011" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[6]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.01" />
+  <testcase name="publicRegistrationRejectsUnauthorizedRolesWithoutSaving(String)[7]" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.01" />
+  <testcase name="studentRegistrationLoginAndAdminDenial" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.326" />
+  <testcase name="missingRoleIsRejected" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.018" />
+  <testcase name="anonymousCannotUseAdminEndpoints" classname="io.khadijah.smartcoursehub.AuthSecurityRegressionTest" time="0.008" />
+</testsuite>

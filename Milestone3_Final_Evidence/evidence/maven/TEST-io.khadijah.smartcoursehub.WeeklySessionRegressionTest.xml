@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.119" tests="6" errors="0" skipped="0" failures="0">
+  <testcase name="repeatsReuseIdsAndAnotherWeekCreatesNewRows" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.032" />
+  <testcase name="historicalDuplicatesArePreservedWithoutAddingMore" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.019" />
+  <testcase name="partialWeekAndDifferentStartTimesPreserveExistingSessions" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.014" />
+  <testcase name="concurrentGenerationCreatesOnlyOnePair" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.022" />
+  <testcase name="initialGenerationCreatesTwoScheduledSessions" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.011" />
+  <testcase name="missingSectionDoesNotInsertSessions" classname="io.khadijah.smartcoursehub.WeeklySessionRegressionTest" time="0.008" />
+</testsuite>

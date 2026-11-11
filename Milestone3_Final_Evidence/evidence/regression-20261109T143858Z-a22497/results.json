@@ -1,0 +1,153 @@
+{
+  "run_id": "20261109T143858Z-a22497",
+  "completed_utc": "2026-11-09T14:39:09.196222+00:00",
+  "database": "smartcoursehub_m2_test",
+  "checks": [
+    {
+      "case": "student-login",
+      "status": "PASS",
+      "expected": "same registered ID",
+      "actual": 43
+    },
+    {
+      "case": "course-browsing",
+      "status": "PASS",
+      "expected": "new section visible",
+      "actual": 140
+    },
+    {
+      "case": "duplicate-enrollment-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "enrollment-listed-active",
+      "status": "PASS",
+      "expected": "one active fixture enrollment",
+      "actual": [
+        {
+          "id": 3,
+          "studentId": 43,
+          "studentName": "M3 Synthetic Student",
+          "sectionId": 140,
+          "courseCode": "M3-20261109T143858Z-a22497",
+          "courseTitle": "M3 Synthetic Corrective Course",
+          "instructorName": "M3 Synthetic Instructor",
+          "semester": "M3-SYNTHETIC",
+          "schedule": "Synthetic Monday Wednesday 09:00",
+          "room": "M3-TEST",
+          "status": "ENROLLED"
+        }
+      ]
+    },
+    {
+      "case": "instructor-roster",
+      "status": "PASS",
+      "expected": "enrolled synthetic student visible",
+      "actual": [
+        43
+      ]
+    },
+    {
+      "case": "withdrawal-status",
+      "status": "PASS",
+      "expected": "DROPPED",
+      "actual": [
+        {
+          "id": "3",
+          "student_id": "43",
+          "section_id": "140",
+          "status": "DROPPED"
+        }
+      ]
+    },
+    {
+      "case": "withdrawal-removes-from-active",
+      "status": "PASS",
+      "expected": "0 active enrollments",
+      "actual": []
+    },
+    {
+      "case": "reenroll-reuses-id",
+      "status": "PASS",
+      "expected": 3,
+      "actual": 3
+    },
+    {
+      "case": "reenrollment-status",
+      "status": "PASS",
+      "expected": "ENROLLED",
+      "actual": [
+        {
+          "id": "3",
+          "student_id": "43",
+          "section_id": "140",
+          "status": "ENROLLED"
+        }
+      ]
+    },
+    {
+      "case": "admin-course-update",
+      "status": "PASS",
+      "expected": "updated synthetic title and 4 credit hours",
+      "actual": {
+        "title": "M3 Synthetic Updated Course",
+        "creditHours": 4
+      }
+    },
+    {
+      "case": "admin-section-update",
+      "status": "PASS",
+      "expected": "M3-UPDATED room and capacity12",
+      "actual": {
+        "room": "M3-UPDATED",
+        "capacity": 12
+      }
+    },
+    {
+      "case": "session-generation-remains-idempotent",
+      "status": "PASS",
+      "expected": "same two IDs",
+      "actual": [
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    {
+      "case": "deactivated-login-rejected",
+      "status": "PASS",
+      "expected": "400 or 401",
+      "actual": 400
+    },
+    {
+      "case": "reactivated-login-success",
+      "status": "PASS",
+      "expected": 43,
+      "actual": 43
+    },
+    {
+      "case": "student-admin-still-forbidden",
+      "status": "PASS",
+      "expected": "403",
+      "actual": 403
+    },
+    {
+      "case": "original-database-preserved",
+      "status": "PASS",
+      "expected": "All table fingerprints unchanged",
+      "actual": true
+    }
+  ],
+  "passed": 16,
+  "failed": 0,
+  "original_database_unchanged": true,
+  "error": null,
+  "status": "PASS"
+}

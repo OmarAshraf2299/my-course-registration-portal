@@ -1,0 +1,1038 @@
+[
+  {
+    "timestamp": "2026-11-11T18:54:42.915200+00:00",
+    "label": "existing administrator login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "[REDACTED]",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 1,
+          "name": "[REDACTED]",
+          "email": "[REDACTED]",
+          "role": "ADMIN"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.083491+00:00",
+    "label": "administrator provisions synthetic instructor",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-instructor-20261111t185441z-a45866@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 53
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.245003+00:00",
+    "label": "synthetic instructor login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-instructor-20261111t185441z-a45866@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 53,
+          "name": "M3 Synthetic Instructor",
+          "email": "m3-instructor-20261111t185441z-a45866@example.test",
+          "role": "INSTRUCTOR"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.360492+00:00",
+    "label": "create synthetic scheduling course",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/courses",
+      "authenticated": true,
+      "body": {
+        "code": "M3-20261111T185441Z-a45866",
+        "title": "M3 Synthetic Corrective Course",
+        "description": "Isolated corrective maintenance fixture",
+        "creditHours": 3
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Course created successfully",
+        "data": 58
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.497223+00:00",
+    "label": "create synthetic scheduling section",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/sections",
+      "authenticated": true,
+      "body": {
+        "courseId": 58,
+        "instructorId": 53,
+        "semester": "M3-SYNTHETIC",
+        "capacity": 10,
+        "room": "M3-TEST",
+        "schedule": "Synthetic Monday Wednesday 09:00"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Section created successfully",
+        "data": 143
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.614110+00:00",
+    "label": "sessions before generation",
+    "request": {
+      "method": "GET",
+      "path": "/api/sections/143/sessions",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.758108+00:00",
+    "label": "initial weekly generation",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 20,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.868030+00:00",
+    "label": "exact weekly replay",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 20,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:43.971267+00:00",
+    "label": "sessions after exact replay",
+    "request": {
+      "method": "GET",
+      "path": "/api/sections/143/sessions",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 20,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.093559+00:00",
+    "label": "distinct next week",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-16",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 22,
+            "sessionDate": "2026-11-16",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 23,
+            "sessionDate": "2026-11-18",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.221769+00:00",
+    "label": "sessions after next week",
+    "request": {
+      "method": "GET",
+      "path": "/api/sections/143/sessions",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 20,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 22,
+            "sessionDate": "2026-11-16",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 23,
+            "sessionDate": "2026-11-18",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.354538+00:00",
+    "label": "overlap reuses Wednesday and adds Friday",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-11",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 24,
+            "sessionDate": "2026-11-13",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.486294+00:00",
+    "label": "sessions after overlapping generation",
+    "request": {
+      "method": "GET",
+      "path": "/api/sections/143/sessions",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 20,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 21,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 22,
+            "sessionDate": "2026-11-16",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 23,
+            "sessionDate": "2026-11-18",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 24,
+            "sessionDate": "2026-11-13",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.636961+00:00",
+    "label": "concurrent weekly generation 1",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-23",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 25,
+            "sessionDate": "2026-11-23",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 26,
+            "sessionDate": "2026-11-25",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.678869+00:00",
+    "label": "concurrent weekly generation 2",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-23",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 25,
+            "sessionDate": "2026-11-23",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 26,
+            "sessionDate": "2026-11-25",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.715113+00:00",
+    "label": "concurrent weekly generation 3",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-23",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 25,
+            "sessionDate": "2026-11-23",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 26,
+            "sessionDate": "2026-11-25",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:44.754061+00:00",
+    "label": "concurrent weekly generation 4",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=2026-11-23",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 25,
+            "sessionDate": "2026-11-23",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 26,
+            "sessionDate": "2026-11-25",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 143,
+              "courseId": 58,
+              "instructorId": 53,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 53,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185441z-a45866@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:45.035729+00:00",
+    "label": "missing section generation",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/9223372036854775807/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Section not found",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:54:45.174541+00:00",
+    "label": "invalid generation date",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/143/sessions/week?startDate=not-a-date",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Method parameter 'startDate': Failed to convert value of type 'java.lang.String' to required type 'java.time.LocalDate'; Failed to convert from type [java.lang.String] to type [@org.springframework.web.bind.annotation.RequestParam @org.springframework.format.annotation.DateTimeFormat java.time.LocalDate] for value [not-a-date]",
+        "data": null
+      }
+    }
+  }
+]

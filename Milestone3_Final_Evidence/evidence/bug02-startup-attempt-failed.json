@@ -1,0 +1,10 @@
+{
+  "captured_utc": "2026-11-09T14:32:44.699466+00:00",
+  "status": "BLOCKED before API verification",
+  "observed_exception_lines": [
+    "Caused by: org.hibernate.boot.registry.classloading.spi.ClassLoadingException: Unable to load class [io.khadijah.smartcoursehub.entity.Assignments]",
+    "Caused by: java.lang.NoClassDefFoundError: io/khadijah/smartcoursehub/entity/Assignments$AssignmentsBuilder",
+    "Caused by: java.lang.ClassNotFoundException: io.khadijah.smartcoursehub.entity.Assignments$AssignmentsBuilder"
+  ],
+  "note": "Compiled classes were changing during launch. No defect API execution occurred on this attempt."
+}

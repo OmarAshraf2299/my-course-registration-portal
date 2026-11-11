@@ -1,0 +1,379 @@
+{
+  "run_id": "20261109T143925Z-d3e605",
+  "completed_utc": "2026-11-09T14:39:36.258181+00:00",
+  "database": "smartcoursehub_m2_test",
+  "checks": [
+    {
+      "case": "student-login",
+      "status": "PASS",
+      "expected": "same registered ID",
+      "actual": 45
+    },
+    {
+      "case": "initial-empty",
+      "status": "PASS",
+      "expected": "0 rows",
+      "actual": 0
+    },
+    {
+      "case": "first-one-row",
+      "status": "PASS",
+      "expected": "1 row",
+      "actual": 1
+    },
+    {
+      "case": "repeat-one-same-id",
+      "status": "PASS",
+      "expected": {
+        "count": 1,
+        "id": 5
+      },
+      "actual": {
+        "count": 1,
+        "ids": [
+          5
+        ]
+      }
+    },
+    {
+      "case": "status-PRESENT-updates-same-row",
+      "status": "PASS",
+      "expected": {
+        "count": 1,
+        "id": 5,
+        "status": "PRESENT"
+      },
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "summary-PRESENT",
+      "status": "PASS",
+      "expected": {
+        "totalClasses": 1,
+        "presentCount": 1,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      },
+      "actual": {
+        "totalClasses": 1,
+        "presentCount": 1,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      }
+    },
+    {
+      "case": "status-ABSENT-updates-same-row",
+      "status": "PASS",
+      "expected": {
+        "count": 1,
+        "id": 5,
+        "status": "ABSENT"
+      },
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "ABSENT"
+        }
+      ]
+    },
+    {
+      "case": "summary-ABSENT",
+      "status": "PASS",
+      "expected": {
+        "totalClasses": 1,
+        "presentCount": 0,
+        "absentCount": 1,
+        "attendancePercentage": 0.0
+      },
+      "actual": {
+        "totalClasses": 1,
+        "presentCount": 0,
+        "absentCount": 1,
+        "attendancePercentage": 0.0
+      }
+    },
+    {
+      "case": "status-LATE-updates-same-row",
+      "status": "PASS",
+      "expected": {
+        "count": 1,
+        "id": 5,
+        "status": "LATE"
+      },
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "LATE"
+        }
+      ]
+    },
+    {
+      "case": "summary-LATE",
+      "status": "PASS",
+      "expected": {
+        "totalClasses": 1,
+        "presentCount": 1,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      },
+      "actual": {
+        "totalClasses": 1,
+        "presentCount": 1,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      }
+    },
+    {
+      "case": "status-LEAVE-updates-same-row",
+      "status": "PASS",
+      "expected": {
+        "count": 1,
+        "id": 5,
+        "status": "LEAVE"
+      },
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "LEAVE"
+        }
+      ]
+    },
+    {
+      "case": "summary-LEAVE",
+      "status": "PASS",
+      "expected": {
+        "totalClasses": 1,
+        "presentCount": 0,
+        "absentCount": 1,
+        "attendancePercentage": 0.0
+      },
+      "actual": {
+        "totalClasses": 1,
+        "presentCount": 0,
+        "absentCount": 1,
+        "attendancePercentage": 0.0
+      }
+    },
+    {
+      "case": "duplicate-batch-one-final-status",
+      "status": "PASS",
+      "expected": "same one row, final explicit PRESENT",
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "concurrent-all-success",
+      "status": "PASS",
+      "expected": "4 HTTP 200 responses",
+      "actual": [
+        200,
+        200,
+        200,
+        200
+      ]
+    },
+    {
+      "case": "concurrent-one-row",
+      "status": "PASS",
+      "expected": "1 PRESENT row",
+      "actual": [
+        {
+          "id": "6",
+          "session_id": "17",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "invalid-status-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "null-status-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "null-student-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "null-record-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "missing-body-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "unenrolled-student-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "missing-student-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "batch-rollback-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "wrong-instructor-400",
+      "status": "PASS",
+      "expected": "400",
+      "actual": 400
+    },
+    {
+      "case": "missing-session-404",
+      "status": "PASS",
+      "expected": "404",
+      "actual": 404
+    },
+    {
+      "case": "student-marking-forbidden",
+      "status": "PASS",
+      "expected": "400 or 403 with success=false and Access Denied; subsequent database check unchanged",
+      "actual": {
+        "status": 400,
+        "body": {
+          "success": false,
+          "message": "Access Denied",
+          "data": null
+        }
+      }
+    },
+    {
+      "case": "invalid-requests-preserve-record",
+      "status": "PASS",
+      "expected": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ],
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "invalid-requests-no-extra-records",
+      "status": "PASS",
+      "expected": "2 legitimate rows only",
+      "actual": [
+        {
+          "id": "5",
+          "session_id": "16",
+          "student_id": "45",
+          "status": "PRESENT"
+        },
+        {
+          "id": "6",
+          "session_id": "17",
+          "student_id": "45",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "final-summary-two-distinct-sessions",
+      "status": "PASS",
+      "expected": {
+        "totalClasses": 2,
+        "presentCount": 2,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      },
+      "actual": {
+        "totalClasses": 2,
+        "presentCount": 2,
+        "absentCount": 0,
+        "attendancePercentage": 100.0
+      }
+    },
+    {
+      "case": "m2-attendance-rows-preserved",
+      "status": "PASS",
+      "expected": [
+        {
+          "id": "1",
+          "session_id": "1",
+          "student_id": "33",
+          "status": "PRESENT"
+        },
+        {
+          "id": "2",
+          "session_id": "1",
+          "student_id": "33",
+          "status": "PRESENT"
+        }
+      ],
+      "actual": [
+        {
+          "id": "1",
+          "session_id": "1",
+          "student_id": "33",
+          "status": "PRESENT"
+        },
+        {
+          "id": "2",
+          "session_id": "1",
+          "student_id": "33",
+          "status": "PRESENT"
+        }
+      ]
+    },
+    {
+      "case": "original-database-preserved",
+      "status": "PASS",
+      "expected": "All table fingerprints unchanged",
+      "actual": true
+    }
+  ],
+  "passed": 31,
+  "failed": 0,
+  "original_database_unchanged": true,
+  "error": null,
+  "status": "PASS"
+}

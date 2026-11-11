@@ -147,8 +147,11 @@ def port_owners():
             raise RuntimeError("Cannot inspect TCP ownership")
         owners = []
         for index in range(struct.unpack_from("<I", buffer.raw)[0]):
-            _, address, port, _, _, pid = struct.unpack_from("<6I", buffer.raw, 4 + index * 24)
-            if socket.inet_ntoa(struct.pack("<I", address)) == "127.0.0.1" and socket.ntohs(port & 65535) == 8081:
+            state, address, port, remote_address, remote_port, pid = struct.unpack_from("<6I", buffer.raw, 4 + index * 24)
+            # Some Windows providers expose an unspecified state (0). A live
+            # PID with no remote endpoint identifies the listening socket;
+            # PID=0 TIME_WAIT rows must never qualify as process ownership.
+            if pid > 0 and state in (0, 2) and remote_address == 0 and remote_port == 0 and socket.inet_ntoa(struct.pack("<I", address)) == "127.0.0.1" and socket.ntohs(port & 65535) == 8081:
                 owners.append(pid)
         return owners
     raise RuntimeError("TCP ownership kept changing")
@@ -194,7 +197,7 @@ def start():
     print("Launched isolated backend PID=" + str(process.pid) + "; run verify after initialization")
 
 
-def restart():
+def stop():
     """Stop only the exact PID whose command and listener match our private state."""
     state = runtime()
     process_id = int(state["pid"])
@@ -220,6 +223,10 @@ def restart():
     if port_owners():
         raise RuntimeError("Port 8081 is occupied after stopping our PID")
     print("Stopped exact managed backend PID=" + str(process_id))
+
+
+def restart():
+    stop()
     start()
 
 
@@ -453,17 +460,205 @@ def bug02():
     return test.finish(error)
 
 
+def create_academic_fixture(test, enroll=True):
+    admin = test.data(test.request("existing administrator login", "POST", "/api/auth/login", admin_credentials()))
+    teacher_body = test.fixture("INSTRUCTOR")
+    teacher_id = test.data(test.request("administrator provisions synthetic instructor", "POST", "/api/admin/users", teacher_body, admin["token"]))
+    teacher = test.data(test.request("synthetic instructor login", "POST", "/api/auth/login",
+                                    {"email": teacher_body["email"], "password": teacher_body["password"]}))
+    student_body = test.fixture("STUDENT")
+    student = test.data(test.request("public synthetic student registration", "POST", "/api/auth/register", student_body))
+    logged = test.data(test.request("synthetic student login", "POST", "/api/auth/login",
+                                   {"email": student_body["email"], "password": student_body["password"]}))
+    test.check("student-login", logged["userId"] == student["userId"], "same registered ID", logged["userId"])
+    course_id = test.data(test.request("create synthetic course", "POST", "/api/admin/courses",
+                 {"code": "M3-" + test.run_id, "title": "M3 Synthetic Corrective Course", "creditHours": 3,
+                  "description": "Isolated corrective maintenance verification"}, admin["token"]))
+    section_id = test.data(test.request("create synthetic section", "POST", "/api/admin/sections",
+                  {"courseId": course_id, "instructorId": teacher_id, "semester": "M3-SYNTHETIC", "capacity": 10,
+                   "room": "M3-TEST", "schedule": "Synthetic Monday Wednesday 09:00"}, admin["token"]))
+    enrollment_id = None
+    if enroll:
+        enrollment_id = test.data(test.request("enroll synthetic student", "POST", "/api/student/enrollments",
+                                               {"sectionId": section_id}, student["token"]))
+    return {"admin": admin, "teacher": teacher, "student": student, "student_body": student_body,
+            "course_id": course_id, "section_id": section_id, "enrollment_id": enrollment_id}
+
+
+def bug03():
+    test = Verification("BUG03")
+    error = None
+    try:
+        legacy_query = "SELECT id, session_id, student_id, status FROM attendance WHERE id IN (1,2) ORDER BY id"
+        legacy_before = test.sql("m2-attendance-before", legacy_query)
+        fixture = create_academic_fixture(test)
+        teacher, student = fixture["teacher"], fixture["student"]
+        section_id = fixture["section_id"]
+        session_path = "/api/sections/" + str(section_id) + "/sessions"
+        sessions = test.data(test.request("generate fresh attendance sessions", "POST", session_path + "/week?startDate=2026-11-09", token=teacher["token"]))
+        session_id, concurrent_session_id = [session["id"] for session in sessions]
+        path = "/api/sessions/" + str(session_id) + "/attendance"
+        pair_query = ("SELECT id, session_id, student_id, status FROM attendance WHERE session_id=" + str(session_id)
+                      + " AND student_id=" + str(student["userId"]) + " ORDER BY id")
+        empty = test.data(test.request("attendance before first mark", "GET", path, token=teacher["token"]))
+        test.check("initial-empty", empty == [], "0 rows", len(empty))
+        present = [{"studentId": student["userId"], "status": "PRESENT"}]
+        test.data(test.request("first attendance mark", "POST", path, present, teacher["token"]))
+        first = test.data(test.request("attendance after first mark", "GET", path, token=teacher["token"]))
+        test.check("first-one-row", len(first) == 1, "1 row", len(first))
+        first_id = first[0]["id"]
+        test.data(test.request("identical attendance replay", "POST", path, present, teacher["token"]))
+        repeated = test.data(test.request("attendance after exact replay", "GET", path, token=teacher["token"]))
+        test.check("repeat-one-same-id", len(repeated) == 1 and repeated[0]["id"] == first_id,
+                   {"count": 1, "id": first_id}, {"count": len(repeated), "ids": [r["id"] for r in repeated]})
+        test.sql("attendance-after-replay", pair_query)
+        for status in ("PRESENT", "ABSENT", "LATE", "LEAVE"):
+            test.data(test.request("set attendance " + status, "POST", path,
+                                   [{"studentId": student["userId"], "status": status}], teacher["token"]))
+            rows = test.sql("attendance-status-" + status.lower(), pair_query)
+            test.check("status-" + status + "-updates-same-row", len(rows) == 1 and rows[0]["id"] == str(first_id) and rows[0]["status"] == status,
+                       {"count": 1, "id": first_id, "status": status}, rows)
+            summary = test.data(test.request("summary after " + status, "GET", "/api/student/attendance/summary", token=student["token"]))
+            observed = next(row for row in summary if row["sectionId"] == section_id)
+            present_count = 1 if status in ("PRESENT", "LATE") else 0
+            expected = {"totalClasses": 1, "presentCount": present_count, "absentCount": 1 - present_count,
+                        "attendancePercentage": float(present_count * 100)}
+            actual = {key: observed[key] for key in expected}
+            test.check("summary-" + status, actual == expected, expected, actual)
+        batch = [{"studentId": student["userId"], "status": "ABSENT"}, {"studentId": student["userId"], "status": "PRESENT"}]
+        test.data(test.request("same student repeated within one batch", "POST", path, batch, teacher["token"]))
+        rows = test.sql("duplicate-batch-final-state", pair_query)
+        test.check("duplicate-batch-one-final-status", len(rows) == 1 and rows[0]["id"] == str(first_id) and rows[0]["status"] == "PRESENT",
+                   "same one row, final explicit PRESENT", rows)
+        concurrent_path = "/api/sessions/" + str(concurrent_session_id) + "/attendance"
+        barrier = threading.Barrier(4)
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = [executor.submit(test.request, "concurrent first attendance mark " + str(i + 1), "POST",
+                                        concurrent_path, present, teacher["token"], barrier) for i in range(4)]
+            concurrent = [future.result(timeout=50) for future in futures]
+        test.check("concurrent-all-success", all(r["status"] == 200 for r in concurrent), "4 HTTP 200 responses", [r["status"] for r in concurrent])
+        rows = test.sql("concurrent-attendance-database", "SELECT id, session_id, student_id, status FROM attendance WHERE session_id="
+                         + str(concurrent_session_id) + " AND student_id=" + str(student["userId"]) + " ORDER BY id")
+        test.check("concurrent-one-row", len(rows) == 1 and rows[0]["status"] == "PRESENT", "1 PRESENT row", rows)
+        outsider_body = test.fixture("STUDENT")
+        outsider_body["email"] = "m3-unenrolled-" + test.run_id.lower() + "@example.test"
+        outsider = test.data(test.request("register unenrolled synthetic student", "POST", "/api/auth/register", outsider_body))
+        wrong_body = test.fixture("INSTRUCTOR")
+        wrong_body["email"] = "m3-other-teacher-" + test.run_id.lower() + "@example.test"
+        test.data(test.request("administrator provisions unrelated instructor", "POST", "/api/admin/users", wrong_body, fixture["admin"]["token"]))
+        wrong_teacher = test.data(test.request("unrelated instructor login", "POST", "/api/auth/login",
+                                               {"email": wrong_body["email"], "password": wrong_body["password"]}))
+        invalid_cases = [
+            ("invalid-status", [{"studentId": student["userId"], "status": "INVALID"}]),
+            ("null-status", [{"studentId": student["userId"], "status": None}]),
+            ("null-student", [{"studentId": None, "status": "PRESENT"}]),
+            ("null-record", [None]),
+            ("missing-body", None),
+            ("unenrolled-student", [{"studentId": outsider["userId"], "status": "PRESENT"}]),
+            ("missing-student", [{"studentId": 9223372036854775807, "status": "PRESENT"}]),
+            ("batch-rollback", [{"studentId": student["userId"], "status": "ABSENT"},
+                                {"studentId": outsider["userId"], "status": "PRESENT"}])]
+        before_invalid = test.sql("before-invalid-requests", pair_query)
+        for label, body in invalid_cases:
+            response = test.request(label + " attendance request", "POST", path, body, teacher["token"])
+            test.check(label + "-400", response["status"] == 400, "400", response["status"])
+        wrong = test.request("unrelated instructor attendance rejected", "POST", path, present, wrong_teacher["token"])
+        test.check("wrong-instructor-400", wrong["status"] == 400, "400", wrong["status"])
+        missing = test.request("missing attendance session", "POST", "/api/sessions/9223372036854775807/attendance", present, teacher["token"])
+        test.check("missing-session-404", missing["status"] == 404, "404", missing["status"])
+        forbidden = test.request("student cannot mark attendance", "POST", path, present, student["token"])
+        # Existing method-security exceptions are mapped to HTTP400 by the
+        # application's exception handler. Preserve that API behavior while
+        # requiring an explicit denial, rather than accepting arbitrary400.
+        denied = (isinstance(forbidden["body"], dict) and forbidden["body"].get("success") is False
+                  and forbidden["body"].get("message") == "Access Denied")
+        test.check("student-marking-forbidden", forbidden["status"] in (400, 403) and denied,
+                   "400 or 403 with success=false and Access Denied; subsequent database check unchanged", forbidden)
+        after_invalid = test.sql("after-invalid-requests", pair_query)
+        test.check("invalid-requests-preserve-record", before_invalid == after_invalid, before_invalid, after_invalid)
+        scoped = test.sql("all-fixture-attendance", "SELECT a.id,a.session_id,a.student_id,a.status FROM attendance a JOIN class_sessions cs ON cs.id=a.session_id WHERE cs.section_id=" + str(section_id) + " ORDER BY a.id")
+        test.check("invalid-requests-no-extra-records", len(scoped) == 2 and all(r["student_id"] == str(student["userId"]) for r in scoped), "2 legitimate rows only", scoped)
+        summary = test.data(test.request("final student attendance summary", "GET", "/api/student/attendance/summary", token=student["token"]))
+        observed = next(row for row in summary if row["sectionId"] == section_id)
+        actual = {key: observed[key] for key in ("totalClasses", "presentCount", "absentCount", "attendancePercentage")}
+        expected = {"totalClasses": 2, "presentCount": 2, "absentCount": 0, "attendancePercentage": 100.0}
+        test.check("final-summary-two-distinct-sessions", actual == expected, expected, actual)
+        legacy_after = test.sql("m2-attendance-after", legacy_query)
+        test.check("m2-attendance-rows-preserved", legacy_before == legacy_after, legacy_before, legacy_after)
+    except Exception as exc:
+        error = str(exc)
+    return test.finish(error)
+
+
+def regression():
+    test = Verification("REGRESSION")
+    error = None
+    try:
+        fixture = create_academic_fixture(test, enroll=False)
+        admin, teacher, student = fixture["admin"], fixture["teacher"], fixture["student"]
+        section_id, course_id = fixture["section_id"], fixture["course_id"]
+        available = test.data(test.request("student course browsing", "GET", "/api/student/sections/available", token=student["token"]))
+        test.check("course-browsing", any(row["id"] == section_id for row in available), "new section visible", section_id)
+        enroll_body = {"sectionId": section_id}
+        enrollment_id = test.data(test.request("student enrollment", "POST", "/api/student/enrollments", enroll_body, student["token"]))
+        duplicate = test.request("duplicate enrollment rejected", "POST", "/api/student/enrollments", enroll_body, student["token"])
+        test.check("duplicate-enrollment-400", duplicate["status"] == 400, "400", duplicate["status"])
+        active = test.data(test.request("active student enrollments", "GET", "/api/student/enrollments", token=student["token"]))
+        test.check("enrollment-listed-active", len(active) == 1 and active[0]["id"] == enrollment_id and active[0]["status"] == "ENROLLED", "one active fixture enrollment", active)
+        roster = test.data(test.request("instructor section roster", "GET", "/api/instructor/sections/" + str(section_id) + "/students", token=teacher["token"]))
+        test.check("instructor-roster", any(row["studentId"] == student["userId"] for row in roster), "enrolled synthetic student visible", [r["studentId"] for r in roster])
+        test.data(test.request("withdraw fixture enrollment", "POST", "/api/student/enrollments/" + str(enrollment_id) + "/drop", token=student["token"]))
+        dropped = test.sql("withdrawal-database", "SELECT id,student_id,section_id,status FROM enrollments WHERE id=" + str(enrollment_id))
+        test.check("withdrawal-status", dropped[0]["status"] == "DROPPED", "DROPPED", dropped)
+        active = test.data(test.request("active enrollments after withdrawal", "GET", "/api/student/enrollments", token=student["token"]))
+        test.check("withdrawal-removes-from-active", active == [], "0 active enrollments", active)
+        reenrolled = test.data(test.request("reenroll dropped enrollment", "POST", "/api/student/enrollments", enroll_body, student["token"]))
+        test.check("reenroll-reuses-id", reenrolled == enrollment_id, enrollment_id, reenrolled)
+        persisted = test.sql("reenrollment-database", "SELECT id,student_id,section_id,status FROM enrollments WHERE id=" + str(enrollment_id))
+        test.check("reenrollment-status", persisted[0]["status"] == "ENROLLED", "ENROLLED", persisted)
+        test.data(test.request("administrator updates synthetic course", "PUT", "/api/admin/courses/" + str(course_id),
+                               {"title": "M3 Synthetic Updated Course", "creditHours": 4}, admin["token"]))
+        course = test.data(test.request("administrator retrieves updated course", "GET", "/api/admin/courses/" + str(course_id), token=admin["token"]))
+        test.check("admin-course-update", course["title"] == "M3 Synthetic Updated Course" and course["creditHours"] == 4,
+                   "updated synthetic title and 4 credit hours", {"title": course["title"], "creditHours": course["creditHours"]})
+        test.data(test.request("administrator updates synthetic section", "PUT", "/api/admin/sections/" + str(section_id),
+                               {"room": "M3-UPDATED", "capacity": 12}, admin["token"]))
+        section = test.data(test.request("administrator retrieves updated section", "GET", "/api/admin/sections/" + str(section_id), token=admin["token"]))
+        test.check("admin-section-update", section["room"] == "M3-UPDATED" and section["capacity"] == 12,
+                   "M3-UPDATED room and capacity12", {"room": section["room"], "capacity": section["capacity"]})
+        path = "/api/sections/" + str(section_id) + "/sessions/week?startDate=2026-11-09"
+        first = test.data(test.request("regression weekly generation", "POST", path, token=teacher["token"]))
+        second = test.data(test.request("regression weekly replay", "POST", path, token=teacher["token"]))
+        test.check("session-generation-remains-idempotent", len(first) == 2 and sorted(r["id"] for r in first) == sorted(r["id"] for r in second),
+                   "same two IDs", [[r["id"] for r in first], [r["id"] for r in second]])
+        user_path = "/api/admin/users/" + str(student["userId"])
+        test.data(test.request("administrator deactivates synthetic student", "POST", user_path + "/deactivate", token=admin["token"]))
+        credentials = {"email": fixture["student_body"]["email"], "password": fixture["student_body"]["password"]}
+        disabled = test.request("disabled student login rejected", "POST", "/api/auth/login", credentials)
+        test.check("deactivated-login-rejected", disabled["status"] in (400, 401), "400 or 401", disabled["status"])
+        test.data(test.request("administrator reactivates synthetic student", "POST", user_path + "/activate", token=admin["token"]))
+        restored = test.data(test.request("reactivated student login succeeds", "POST", "/api/auth/login", credentials))
+        test.check("reactivated-login-success", restored["userId"] == student["userId"], student["userId"], restored["userId"])
+        forbidden = test.request("student admin API remains forbidden", "GET", "/api/admin/users/role/M3_NONEXISTENT", token=restored["token"])
+        test.check("student-admin-still-forbidden", forbidden["status"] == 403, "403", forbidden["status"])
+    except Exception as exc:
+        error = str(exc)
+    return test.finish(error)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=["start", "restart", "verify", "bug01", "bug02"])
+    parser.add_argument("command", choices=["start", "stop", "restart", "verify", "bug01", "bug02", "bug03", "regression"])
     args = parser.parse_args()
     if args.command == "start":
         start()
+    elif args.command == "stop":
+        stop()
     elif args.command == "restart":
         restart()
     elif args.command == "verify":
         verify()
-    elif not {"bug01": bug01, "bug02": bug02}[args.command]():
+    elif not {"bug01": bug01, "bug02": bug02, "bug03": bug03, "regression": regression}[args.command]():
         raise SystemExit(1)
 
 

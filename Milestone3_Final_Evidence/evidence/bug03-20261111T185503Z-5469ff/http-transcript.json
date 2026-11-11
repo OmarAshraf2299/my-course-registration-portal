@@ -1,0 +1,1073 @@
+[
+  {
+    "timestamp": "2026-11-11T18:55:05.590119+00:00",
+    "label": "existing administrator login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "[REDACTED]",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 1,
+          "name": "[REDACTED]",
+          "email": "[REDACTED]",
+          "role": "ADMIN"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:05.778923+00:00",
+    "label": "administrator provisions synthetic instructor",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-instructor-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 54
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:05.923521+00:00",
+    "label": "synthetic instructor login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-instructor-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 54,
+          "name": "M3 Synthetic Instructor",
+          "email": "m3-instructor-20261111t185503z-5469ff@example.test",
+          "role": "INSTRUCTOR"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.085608+00:00",
+    "label": "public synthetic student registration",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Student",
+        "email": "m3-student-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]",
+        "role": "STUDENT"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Registration successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 55,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261111t185503z-5469ff@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.222911+00:00",
+    "label": "synthetic student login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-student-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 55,
+          "name": "M3 Synthetic Student",
+          "email": "m3-student-20261111t185503z-5469ff@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.348007+00:00",
+    "label": "create synthetic course",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/courses",
+      "authenticated": true,
+      "body": {
+        "code": "M3-20261111T185503Z-5469ff",
+        "title": "M3 Synthetic Corrective Course",
+        "creditHours": 3,
+        "description": "Isolated corrective maintenance verification"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Course created successfully",
+        "data": 59
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.466511+00:00",
+    "label": "create synthetic section",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/sections",
+      "authenticated": true,
+      "body": {
+        "courseId": 59,
+        "instructorId": 54,
+        "semester": "M3-SYNTHETIC",
+        "capacity": 10,
+        "room": "M3-TEST",
+        "schedule": "Synthetic Monday Wednesday 09:00"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Section created successfully",
+        "data": 144
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.626519+00:00",
+    "label": "enroll synthetic student",
+    "request": {
+      "method": "POST",
+      "path": "/api/student/enrollments",
+      "authenticated": true,
+      "body": {
+        "sectionId": 144
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Enrollment successful",
+        "data": 6
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.742097+00:00",
+    "label": "generate fresh attendance sessions",
+    "request": {
+      "method": "POST",
+      "path": "/api/sections/144/sessions/week?startDate=2026-11-09",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 27,
+            "sessionDate": "2026-11-09",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 144,
+              "courseId": 59,
+              "instructorId": 54,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 54,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185503z-5469ff@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          },
+          {
+            "id": 28,
+            "sessionDate": "2026-11-11",
+            "startTime": "09:00:00",
+            "durationMinutes": 90,
+            "topic": null,
+            "section": {
+              "id": 144,
+              "courseId": 59,
+              "instructorId": 54,
+              "semester": "M3-SYNTHETIC",
+              "capacity": 10,
+              "room": "M3-TEST",
+              "schedule": "Synthetic Monday Wednesday 09:00"
+            },
+            "createdByTeacher": {
+              "id": 54,
+              "name": "M3 Synthetic Instructor",
+              "email": "m3-instructor-20261111t185503z-5469ff@example.test",
+              "password": "[REDACTED]",
+              "role": "INSTRUCTOR",
+              "enabled": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.857697+00:00",
+    "label": "attendance before first mark",
+    "request": {
+      "method": "GET",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": []
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:06.997047+00:00",
+    "label": "first attendance mark",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.130750+00:00",
+    "label": "attendance after first mark",
+    "request": {
+      "method": "GET",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 7,
+            "sessionId": 27,
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "studentId": 55,
+            "studentName": "M3 Synthetic Student",
+            "attendanceDate": "2026-11-09",
+            "status": "PRESENT"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.259792+00:00",
+    "label": "identical attendance replay",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.386385+00:00",
+    "label": "attendance after exact replay",
+    "request": {
+      "method": "GET",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "id": 7,
+            "sessionId": 27,
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "studentId": 55,
+            "studentName": "M3 Synthetic Student",
+            "attendanceDate": "2026-11-09",
+            "status": "PRESENT"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.619224+00:00",
+    "label": "set attendance PRESENT",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.839038+00:00",
+    "label": "summary after PRESENT",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/attendance/summary",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "totalClasses": 1,
+            "presentCount": 1,
+            "absentCount": 0,
+            "attendancePercentage": 100.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:07.999594+00:00",
+    "label": "set attendance ABSENT",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "ABSENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:08.200297+00:00",
+    "label": "summary after ABSENT",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/attendance/summary",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "totalClasses": 1,
+            "presentCount": 0,
+            "absentCount": 1,
+            "attendancePercentage": 0.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:08.334537+00:00",
+    "label": "set attendance LATE",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "LATE"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:08.524438+00:00",
+    "label": "summary after LATE",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/attendance/summary",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "totalClasses": 1,
+            "presentCount": 1,
+            "absentCount": 0,
+            "attendancePercentage": 100.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:08.677360+00:00",
+    "label": "set attendance LEAVE",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "LEAVE"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:08.869997+00:00",
+    "label": "summary after LEAVE",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/attendance/summary",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "totalClasses": 1,
+            "presentCount": 0,
+            "absentCount": 1,
+            "attendancePercentage": 0.0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.055860+00:00",
+    "label": "same student repeated within one batch",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "ABSENT"
+        },
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.333992+00:00",
+    "label": "concurrent first attendance mark 3",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/28/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.392767+00:00",
+    "label": "concurrent first attendance mark 2",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/28/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.441600+00:00",
+    "label": "concurrent first attendance mark 1",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/28/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.483388+00:00",
+    "label": "concurrent first attendance mark 4",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/28/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Attendance marked successfully",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.757111+00:00",
+    "label": "register unenrolled synthetic student",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/register",
+      "authenticated": false,
+      "body": {
+        "name": "M3 Synthetic Student",
+        "email": "m3-unenrolled-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]",
+        "role": "STUDENT"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Registration successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 56,
+          "name": "M3 Synthetic Student",
+          "email": "m3-unenrolled-20261111t185503z-5469ff@example.test",
+          "role": "STUDENT"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:09.945450+00:00",
+    "label": "administrator provisions unrelated instructor",
+    "request": {
+      "method": "POST",
+      "path": "/api/admin/users",
+      "authenticated": true,
+      "body": {
+        "name": "M3 Synthetic Instructor",
+        "email": "m3-other-teacher-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]",
+        "role": "INSTRUCTOR"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "User created successfully",
+        "data": 57
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.135228+00:00",
+    "label": "unrelated instructor login",
+    "request": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "authenticated": false,
+      "body": {
+        "email": "m3-other-teacher-20261111t185503z-5469ff@example.test",
+        "password": "[REDACTED]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Login successful",
+        "data": {
+          "token": "[REDACTED]",
+          "userId": 57,
+          "name": "M3 Synthetic Instructor",
+          "email": "m3-other-teacher-20261111t185503z-5469ff@example.test",
+          "role": "INSTRUCTOR"
+        }
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.360742+00:00",
+    "label": "invalid-status attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "INVALID"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Invalid attendance status",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.501404+00:00",
+    "label": "null-status attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": null
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student ID and attendance status are required",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.621305+00:00",
+    "label": "null-student attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": null,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student ID and attendance status are required",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.744737+00:00",
+    "label": "null-record attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        null
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student ID and attendance status are required",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:10.870724+00:00",
+    "label": "missing-body attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Required request body is missing: public org.springframework.http.ResponseEntity<io.khadijah.smartcoursehub.dto.ApiResponse<java.lang.Void>> io.khadijah.smartcoursehub.controller.AttendanceController.markAttendance(java.lang.Long,java.util.List<io.khadijah.smartcoursehub.dto.AttendanceRecordDTO>,jakarta.servlet.http.HttpServletRequest)",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.008022+00:00",
+    "label": "unenrolled-student attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 56,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student is not enrolled in this section",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.151128+00:00",
+    "label": "missing-student attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 9223372036854775807,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student is not enrolled in this section",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.296139+00:00",
+    "label": "batch-rollback attendance request",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "ABSENT"
+        },
+        {
+          "studentId": 56,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Student is not enrolled in this section",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.440605+00:00",
+    "label": "unrelated instructor attendance rejected",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "You are not the instructor of this section",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.581182+00:00",
+    "label": "missing attendance session",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/9223372036854775807/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Session not found",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:11.721066+00:00",
+    "label": "student cannot mark attendance",
+    "request": {
+      "method": "POST",
+      "path": "/api/sessions/27/attendance",
+      "authenticated": true,
+      "body": [
+        {
+          "studentId": 55,
+          "status": "PRESENT"
+        }
+      ]
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Access Denied",
+        "data": null
+      }
+    }
+  },
+  {
+    "timestamp": "2026-11-11T18:55:12.023105+00:00",
+    "label": "final student attendance summary",
+    "request": {
+      "method": "GET",
+      "path": "/api/student/attendance/summary",
+      "authenticated": true,
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "success": true,
+        "message": "Success",
+        "data": [
+          {
+            "sectionId": 144,
+            "courseCode": "M3-20261111T185503Z-5469ff",
+            "courseTitle": "M3 Synthetic Corrective Course",
+            "totalClasses": 2,
+            "presentCount": 2,
+            "absentCount": 0,
+            "attendancePercentage": 100.0
+          }
+        ]
+      }
+    }
+  }
+]

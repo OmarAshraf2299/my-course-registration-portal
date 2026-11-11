@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-11-11T18:55:11.911847+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT a.id,a.session_id,a.student_id,a.status FROM attendance a JOIN class_sessions cs ON cs.id=a.session_id WHERE cs.section_id=144 ORDER BY a.id",
+  "rows": [
+    {
+      "id": "7",
+      "session_id": "27",
+      "student_id": "55",
+      "status": "PRESENT"
+    },
+    {
+      "id": "8",
+      "session_id": "28",
+      "student_id": "55",
+      "status": "PRESENT"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-11-09T14:38:28.689020+00:00",
+  "database": "smartcoursehub_m2_test",
+  "query": "SELECT id, session_id, student_id, status FROM attendance WHERE session_id=12 AND student_id=39 ORDER BY id",
+  "rows": [
+    {
+      "id": "3",
+      "session_id": "12",
+      "student_id": "39",
+      "status": "PRESENT"
+    }
+  ]
+}

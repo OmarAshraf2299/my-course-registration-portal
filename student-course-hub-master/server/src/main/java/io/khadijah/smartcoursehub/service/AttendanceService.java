@@ -19,6 +19,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -82,33 +84,51 @@ public class AttendanceService {
     @Transactional
     public void markAttendance(Long sessionId, List<AttendanceRecordDTO> records, Long instructorId) {
 
-        ClassSession session = classSessionRepository.findById(sessionId)
+        // Serialize even the first mark, when there is no attendance row to lock.
+        ClassSession session = classSessionRepository.findByIdForUpdate(sessionId)
                 .orElseThrow(() -> new NoSuchElementException("Session not found"));
 
         if (!session.getSection().getInstructorId().equals(instructorId)) {
             throw new IllegalStateException("You are not the instructor of this section");
         }
 
+        if (records == null) {
+            throw new IllegalStateException("Attendance records are required");
+        }
         for (AttendanceRecordDTO record : records) {
+            if (record == null || record.getStudentId() == null || record.getStatus() == null) {
+                throw new IllegalStateException("Student ID and attendance status are required");
+            }
 
             // Validate enrollment
             if (!enrollmentsRepository.existsByStudentIdAndSectionIdAndStatus(
                     record.getStudentId(),
                     session.getSection().getId(),
                     "ENROLLED")) {
-                continue;
+                throw new IllegalStateException("Student is not enrolled in this section");
             }
 
-            AttendanceStatus status = AttendanceStatus.valueOf(record.getStatus());
+            AttendanceStatus status;
+            try {
+                status = AttendanceStatus.valueOf(record.getStatus());
+            } catch (IllegalArgumentException ex) {
+                throw new IllegalStateException("Invalid attendance status");
+            }
 
-            // ✅ ALWAYS CREATE A NEW RECORD
-            Attendance attendance = Attendance.builder()
-                    .session(session)
-                    .student(usersRepository.getReferenceById(record.getStudentId()))
-                    .status(status)
-                    .build();
-
-            attendanceRepository.save(attendance);
+            List<Attendance> existing = attendanceRepository.findAllBySessionIdAndStudentId(
+                    sessionId, record.getStudentId());
+            if (existing.isEmpty()) {
+                attendanceRepository.save(Attendance.builder()
+                        .session(session)
+                        .student(usersRepository.getReferenceById(record.getStudentId()))
+                        .status(status)
+                        .build());
+            } else {
+                // An explicit instructor correction also resolves legacy conflicts,
+                // while retaining all historical row IDs (no destructive cleanup).
+                existing.forEach(attendance -> attendance.setStatus(status));
+                attendanceRepository.saveAll(existing);
+            }
         }
     }
 
@@ -135,19 +155,27 @@ public class AttendanceService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public List<AttendanceSummaryDTO> getStudentAttendanceSummary(Long studentId) {
         List<AttendanceSummaryDTO> summaries = new ArrayList<>();
         
         enrollmentsRepository.findByStudentIdAndStatus(studentId, "ENROLLED").forEach(enrollment -> {
             Long sectionId = enrollment.getSectionId();
-            Long totalClasses = attendanceRepository.countTotalByStudentAndSection(studentId, sectionId);
-            
-            // For Viva/Demo: Count LATE as Present (Took Class) and LEAVE as Absent (Missed Class)
-            Long presentCount = attendanceRepository.countByStudentAndSectionAndStatus(studentId, sectionId, AttendanceStatus.PRESENT)
-                               + attendanceRepository.countByStudentAndSectionAndStatus(studentId, sectionId, AttendanceStatus.LATE);
-            
-            Long absentCount = attendanceRepository.countByStudentAndSectionAndStatus(studentId, sectionId, AttendanceStatus.ABSENT)
-                             + attendanceRepository.countByStudentAndSectionAndStatus(studentId, sectionId, AttendanceStatus.LEAVE);
+            // Count recorded sessions, not rows left by the old insert-only writer.
+            Map<Long, AttendanceStatus> statusBySession = new HashMap<>();
+            attendanceRepository.findByStudentIdAndSession_SectionId(studentId, sectionId).forEach(attendance -> {
+                AttendanceStatus previous = statusBySession.putIfAbsent(
+                        attendance.getSession().getId(), attendance.getStatus());
+                if (previous != null && previous != attendance.getStatus()) {
+                    throw new IllegalStateException("Conflicting historical attendance for session "
+                            + attendance.getSession().getId() + "; instructor must mark attendance again");
+                }
+            });
+            Long totalClasses = (long) statusBySession.size();
+            // Preserve LATE as present and LEAVE as absent.
+            Long presentCount = statusBySession.values().stream()
+                    .filter(status -> status == AttendanceStatus.PRESENT || status == AttendanceStatus.LATE).count();
+            Long absentCount = totalClasses - presentCount;
 
             AttendanceSummaryDTO summary = new AttendanceSummaryDTO();
             summary.setSectionId(sectionId);
